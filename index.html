@@ -4,20 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <title>Signal Console | Equity Timing Systems</title>
+  <title>Market Timing Systems | Asset Matrix</title>
   <style>
     :root {
-      --bg: #030507;
-      --panel: #090d10;
-      --panel-soft: #0e1419;
-      --line: rgba(198, 211, 226, 0.15);
-      --line-bright: rgba(198, 211, 226, 0.36);
-      --text: #eef3f7;
-      --muted: #84919e;
-      --soft: #b9c4ce;
-      --green: #6fe2a6;
-      --cyan: #7fd8ff;
-      --red: #ff7878;
+      --bg: #040506;
+      --ink: #f5f7f8;
+      --muted: #87929d;
+      --soft: #c1c9d1;
+      --panel: #080b0d;
+      --panel-2: #10151a;
+      --line: rgba(210, 219, 229, 0.15);
+      --line-strong: rgba(210, 219, 229, 0.34);
+      --green: #73dfa5;
+      --blue: #78caff;
+      --gold: #e7bf68;
+      --steel: #9aa7b3;
       --fast: 180ms ease;
     }
 
@@ -30,357 +31,380 @@
       margin: 0;
       display: grid;
       place-items: center;
-      padding: clamp(18px, 4vw, 48px);
-      color: var(--text);
+      padding: clamp(16px, 4vw, 46px);
+      color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        radial-gradient(circle at 18% 12%, rgba(111, 226, 166, 0.1), transparent 26%),
-        radial-gradient(circle at 82% 20%, rgba(127, 216, 255, 0.12), transparent 28%),
+        linear-gradient(135deg, rgba(120, 202, 255, 0.075), transparent 38%),
+        linear-gradient(315deg, rgba(115, 223, 165, 0.06), transparent 40%),
         var(--bg);
-      background-size: 26px 26px, 26px 26px, auto, auto, auto;
+      background-size: 28px 28px, 28px 28px, auto, auto, auto;
       -webkit-font-smoothing: antialiased;
     }
 
-    .console {
-      width: min(100%, 1050px);
+    .terminal {
+      width: min(100%, 1220px);
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(7, 10, 13, 0.96);
-      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.54);
       overflow: hidden;
+      background: rgba(6, 8, 10, 0.96);
+      box-shadow: 0 34px 94px rgba(0, 0, 0, 0.58);
     }
 
-    header {
+    .topbar {
       display: grid;
-      gap: 26px;
-      padding: clamp(28px, 5vw, 58px);
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: 15px 18px;
       border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(127, 216, 255, 0.1), transparent 30%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.028), transparent);
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
       color: var(--muted);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 850;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .topbar span:last-child {
+      color: var(--steel);
+      text-align: right;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      min-height: 650px;
+    }
+
+    .intro {
+      display: grid;
+      align-content: space-between;
+      gap: 44px;
+      padding: clamp(28px, 5vw, 58px);
+      border-right: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 45%),
+        var(--panel);
     }
 
     h1 {
-      max-width: 760px;
+      max-width: 650px;
       margin: 0;
-      font-size: clamp(38px, 6.4vw, 76px);
+      font-size: clamp(42px, 6vw, 74px);
       line-height: 0.96;
       letter-spacing: 0;
     }
 
     .lead {
-      max-width: 560px;
-      margin: 0;
+      max-width: 520px;
+      margin: 20px 0 0;
       color: var(--soft);
       font-size: 17px;
       line-height: 1.7;
     }
 
-    .systems {
+    .scope {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .system {
+    .scope div {
+      min-height: 84px;
       display: grid;
-      gap: 28px;
-      min-height: 340px;
-      padding: clamp(22px, 4vw, 38px);
+      align-content: center;
+      gap: 6px;
+      padding: 14px;
+    }
+
+    .scope div + div {
+      border-left: 1px solid var(--line);
+    }
+
+    .scope span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scope strong {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+    }
+
+    .row {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(120px, 0.35fr) minmax(0, 1fr) minmax(130px, 0.32fr) 46px;
+      gap: 22px;
+      align-items: center;
+      padding: clamp(22px, 3vw, 36px);
       color: inherit;
       text-decoration: none;
       background: var(--panel);
       transition: transform var(--fast), background var(--fast), box-shadow var(--fast);
     }
 
-    .system + .system {
-      border-left: 1px solid var(--line);
+    .row + .row {
+      border-top: 1px solid var(--line);
     }
 
-    .system:hover,
-    .system:focus-visible {
-      transform: translateY(-4px);
-      background: var(--panel-soft);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.34);
+    .row:hover,
+    .row:focus-visible {
+      transform: translateY(-3px);
+      background: var(--panel-2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 22px 58px rgba(0, 0, 0, 0.36);
       outline: none;
+      z-index: 2;
     }
 
-    .system:focus-visible {
-      box-shadow: 0 0 0 2px rgba(127, 216, 255, 0.7);
+    .row:focus-visible {
+      box-shadow: 0 0 0 2px rgba(120, 202, 255, 0.72);
     }
 
-    .label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
+    .code {
+      display: grid;
+      gap: 10px;
+    }
+
+    .code span,
+    .meta span,
+    .class {
       color: var(--muted);
       font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
+      font-weight: 850;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
-    .signal {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .code strong {
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    .spx .code strong {
+      color: var(--blue);
+    }
+
+    .hsi .code strong {
       color: var(--green);
     }
 
-    .signal::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 16px currentColor;
+    .btc .code strong {
+      color: var(--gold);
+    }
+
+    .copy {
+      display: grid;
+      gap: 11px;
     }
 
     h2 {
-      margin: 0 0 14px;
-      font-size: clamp(29px, 4vw, 45px);
-      line-height: 1.03;
+      margin: 0;
+      font-size: clamp(25px, 3vw, 38px);
+      line-height: 1.04;
       letter-spacing: 0;
     }
 
     p {
       margin: 0;
       color: var(--soft);
-      line-height: 1.68;
+      line-height: 1.58;
     }
 
-    .rows {
+    .meta {
       display: grid;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      padding: 12px 14px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .row + .row {
-      border-top: 1px solid var(--line);
-    }
-
-    .row strong {
-      color: var(--text);
-      font-weight: 750;
-    }
-
-    .market-code {
-      display: inline-flex;
-      align-items: center;
       gap: 8px;
+      color: var(--soft);
+      font-size: 14px;
+      text-align: right;
     }
 
-    .cta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      color: var(--cyan);
-      font-weight: 800;
+    .meta strong {
+      color: var(--ink);
+      font-size: 16px;
     }
 
-    .cta span:last-child {
-      width: 32px;
-      height: 32px;
+    .launch {
+      width: 46px;
+      height: 46px;
       display: grid;
       place-items: center;
-      border: 1px solid var(--line-bright);
+      border: 1px solid var(--line-strong);
       border-radius: 50%;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 850;
       transition: transform var(--fast), background var(--fast);
     }
 
-    .cta span:last-child::before {
+    .launch::before {
       content: ">";
     }
 
-    .system:hover .cta span:last-child,
-    .system:focus-visible .cta span:last-child {
+    .row:hover .launch,
+    .row:focus-visible .launch {
       transform: translateX(4px);
-      background: rgba(127, 216, 255, 0.08);
+      background: rgba(255, 255, 255, 0.065);
     }
 
-    @media (max-width: 760px) {
-      body {
-        min-height: 100svh;
-        place-items: start center;
-        padding: 12px;
+    @media (max-width: 940px) {
+      .layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
       }
 
-      .console {
-        border-radius: 7px;
-        box-shadow: 0 18px 54px rgba(0, 0, 0, 0.46);
+      .intro {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
       }
+    }
 
-      header {
-        gap: 18px;
-        padding: 24px 20px 26px;
-      }
-
-      .systems {
+    @media (max-width: 720px) {
+      .topbar {
         grid-template-columns: 1fr;
       }
 
-      .system {
-        gap: 20px;
-        min-height: auto;
-        padding: 22px 20px;
+      .scope {
+        grid-template-columns: 1fr;
       }
 
-      .system + .system {
+      .scope div + div {
         border-left: 0;
         border-top: 1px solid var(--line);
       }
 
-      .nav {
-        flex-direction: column;
-        gap: 8px;
-        font-size: 11px;
-        line-height: 1.4;
-      }
-
-      h1 {
-        max-width: 10ch;
-        font-size: clamp(34px, 12vw, 48px);
-        line-height: 1;
-      }
-
-      .lead {
-        font-size: 15px;
-        line-height: 1.58;
-      }
-
-      .label {
-        align-items: flex-start;
-        font-size: 11px;
-        line-height: 1.35;
-      }
-
-      h2 {
-        margin-bottom: 10px;
-        font-size: clamp(27px, 8vw, 34px);
-        line-height: 1.08;
-      }
-
-      p {
-        font-size: 15px;
-        line-height: 1.58;
-      }
-
       .row {
-        gap: 12px;
-        padding: 11px 12px;
-        font-size: 12px;
+        grid-template-columns: minmax(0, 1fr) 46px;
+        gap: 18px;
       }
 
-      .row strong {
-        text-align: right;
+      .code,
+      .copy,
+      .meta {
+        grid-column: 1;
       }
 
-      .cta {
-        gap: 12px;
-        font-size: 14px;
+      .meta {
+        text-align: left;
+      }
+
+      .launch {
+        grid-column: 2;
+        grid-row: 1;
       }
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 460px) {
       body {
         padding: 8px;
       }
 
-      header {
-        padding: 22px 18px 24px;
-      }
-
-      .system {
-        padding: 20px 18px;
-      }
-
-      .label,
-      .row,
-      .cta {
-        overflow-wrap: anywhere;
-      }
-
-      .label {
-        display: grid;
-        grid-template-columns: 1fr auto;
-      }
-
+      .topbar,
+      .intro,
       .row {
-        grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      h1 {
+        font-size: clamp(38px, 12vw, 52px);
+      }
+
+      .lead,
+      p {
+        font-size: 15px;
       }
     }
   </style>
 </head>
 <body>
-  <main class="console">
-    <header>
-      <div class="nav">
-        <span>Belling Xu</span>
-        <span>SPX / HSI Signal Console</span>
-      </div>
-      <h1>Equity Timing Systems</h1>
-      <p class="lead">A focused gateway to systematic market timing dashboards for the S&amp;P 500 and Hang Seng Index.</p>
-    </header>
+  <main class="terminal">
+    <div class="topbar">
+      <span>Belling Xu / Signal Infrastructure</span>
+      <span>SPX / HSI / BTC</span>
+    </div>
 
-    <section class="systems" aria-label="Dashboard links">
-      <a class="system" href="https://timing-spx.pages.dev" target="_blank" rel="noopener noreferrer">
-        <div class="label">
-          <span class="market-code">🇺🇸 SPX / US Market</span>
-          <span class="signal">Dashboard</span>
-        </div>
+    <div class="layout">
+      <section class="intro" aria-label="Console introduction">
         <div>
-          <h2>S&amp;P 500 Timing</h2>
-          <p>Review the latest systematic timing signals for the US equity benchmark.</p>
+          <h1>Timing Signal Matrix</h1>
+          <p class="lead">One institutional gateway for systematic dashboards across global equity benchmarks and Bitcoin.</p>
         </div>
-        <div class="rows" aria-hidden="true">
-          <div class="row"><span>Market</span><strong>🇺🇸 United States</strong></div>
-          <div class="row"><span>Benchmark</span><strong>S&amp;P 500</strong></div>
-          <div class="row"><span>Mode</span><strong>Dashboard</strong></div>
-        </div>
-        <div class="cta"><span>Open dashboard</span><span></span></div>
-      </a>
 
-      <a class="system" href="https://timing-hsi.pages.dev" target="_blank" rel="noopener noreferrer">
-        <div class="label">
-          <span class="market-code">🇭🇰 HSI / Hong Kong</span>
-          <span class="signal">Dashboard</span>
+        <div class="scope" aria-label="Coverage summary">
+          <div><span>Systems</span><strong>03</strong></div>
+          <div><span>Assets</span><strong>Multi</strong></div>
+          <div><span>Mode</span><strong>Live</strong></div>
         </div>
-        <div>
-          <h2>HSI Timing</h2>
-          <p>Review the latest systematic timing signals for the Hong Kong equity benchmark.</p>
-        </div>
-        <div class="rows" aria-hidden="true">
-          <div class="row"><span>Market</span><strong>🇭🇰 Hong Kong</strong></div>
-          <div class="row"><span>Benchmark</span><strong>Hang Seng Index</strong></div>
-          <div class="row"><span>Mode</span><strong>Dashboard</strong></div>
-        </div>
-        <div class="cta"><span>Open dashboard</span><span></span></div>
-      </a>
-    </section>
+      </section>
+
+      <section class="matrix" aria-label="Dashboard links">
+        <a class="row spx" href="https://timing-spx.pages.dev" target="_blank" rel="noopener noreferrer">
+          <div class="code">
+            <span>US Equity</span>
+            <strong>SPX</strong>
+          </div>
+          <div class="copy">
+            <span class="class">Benchmark Dashboard</span>
+            <h2>S&amp;P 500 Timing</h2>
+            <p>Systematic timing signals for US market exposure.</p>
+          </div>
+          <div class="meta">
+            <span>Benchmark</span>
+            <strong>S&amp;P 500</strong>
+          </div>
+          <span class="launch" aria-hidden="true"></span>
+        </a>
+
+        <a class="row hsi" href="https://timing-hsi.pages.dev" target="_blank" rel="noopener noreferrer">
+          <div class="code">
+            <span>Hong Kong Equity</span>
+            <strong>HSI</strong>
+          </div>
+          <div class="copy">
+            <span class="class">Benchmark Dashboard</span>
+            <h2>HSI Timing</h2>
+            <p>Systematic timing signals for Hong Kong market exposure.</p>
+          </div>
+          <div class="meta">
+            <span>Benchmark</span>
+            <strong>Hang Seng Index</strong>
+          </div>
+          <span class="launch" aria-hidden="true"></span>
+        </a>
+
+        <a class="row btc" href="https://timing-btc.pages.dev" target="_blank" rel="noopener noreferrer">
+          <div class="code">
+            <span>Digital Asset</span>
+            <strong>BTC</strong>
+          </div>
+          <div class="copy">
+            <span class="class">Digital Asset Dashboard</span>
+            <h2>BTC Timing</h2>
+            <p>Systematic timing signals for Bitcoin market exposure.</p>
+          </div>
+          <div class="meta">
+            <span>Benchmark</span>
+            <strong>Bitcoin</strong>
+          </div>
+          <span class="launch" aria-hidden="true"></span>
+        </a>
+      </section>
+    </div>
   </main>
 </body>
 </html>
