@@ -4,20 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <title>Market Timing Systems | Asset Matrix</title>
+  <title>Market Timing Systems | GLD Matrix Option</title>
   <style>
     :root {
       --bg: #040506;
       --ink: #f5f7f8;
-      --muted: #87929d;
-      --soft: #c1c9d1;
+      --muted: #88939d;
+      --soft: #c2cad2;
       --panel: #080b0d;
       --panel-2: #10151a;
-      --line: rgba(210, 219, 229, 0.15);
-      --line-strong: rgba(210, 219, 229, 0.34);
+      --line: rgba(211, 220, 229, 0.15);
+      --line-strong: rgba(211, 220, 229, 0.34);
       --green: #73dfa5;
       --blue: #78caff;
+      --btc: #ff8a64;
       --gold: #e7bf68;
+      --champagne: #f4d77d;
       --steel: #9aa7b3;
       --fast: 180ms ease;
     }
@@ -36,13 +38,14 @@
       color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(135deg, rgba(120, 202, 255, 0.11), transparent 34%),
-        linear-gradient(315deg, rgba(115, 223, 165, 0.08), transparent 38%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 20%, rgba(0, 0, 0, 0.28) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(124deg, transparent 0 18%, rgba(120, 202, 255, 0.075) 18.2%, transparent 19.2% 62%, rgba(244, 215, 125, 0.08) 62.2%, transparent 63.2%),
+        linear-gradient(38deg, rgba(244, 215, 125, 0.1), transparent 30%),
+        linear-gradient(144deg, rgba(120, 202, 255, 0.09), transparent 42%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.052), transparent 22%, rgba(0, 0, 0, 0.34) 100%),
         var(--bg);
-      background-size: 28px 28px, 28px 28px, auto, auto, auto, auto;
+      background-size: 30px 30px, 30px 30px, auto, auto, auto, auto, auto;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -58,34 +61,38 @@
     body::before {
       z-index: 0;
       background:
-        repeating-linear-gradient(90deg, rgba(120, 202, 255, 0.05) 0 1px, transparent 1px 118px),
-        repeating-linear-gradient(0deg, rgba(115, 223, 165, 0.035) 0 1px, transparent 1px 96px),
-        linear-gradient(118deg, transparent 0 18%, rgba(120, 202, 255, 0.08) 18.2%, transparent 18.8% 42%, rgba(231, 191, 104, 0.055) 42.2%, transparent 42.9%),
-        linear-gradient(58deg, transparent 0 61%, rgba(115, 223, 165, 0.07) 61.3%, transparent 62.2%);
-      opacity: 0.7;
+        repeating-linear-gradient(90deg, rgba(120, 202, 255, 0.045) 0 1px, transparent 1px 120px),
+        repeating-linear-gradient(0deg, rgba(244, 215, 125, 0.036) 0 1px, transparent 1px 104px),
+        linear-gradient(112deg, transparent 0 24%, rgba(120, 202, 255, 0.09) 24.2%, transparent 25.1% 46%, rgba(255, 138, 100, 0.055) 46.2%, transparent 47.1% 72%, rgba(244, 215, 125, 0.07) 72.2%, transparent 73.1%),
+        linear-gradient(68deg, rgba(255, 255, 255, 0.026) 0 1px, transparent 1px 43%, rgba(255, 255, 255, 0.035) 43.1%, transparent 43.7%);
+      opacity: 0.78;
       mix-blend-mode: screen;
     }
 
     body::after {
       z-index: 0;
       background:
-        radial-gradient(ellipse at center, transparent 0 46%, rgba(0, 0, 0, 0.62) 100%),
-        repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px);
-      opacity: 0.86;
+        linear-gradient(90deg, rgba(0, 0, 0, 0.54), transparent 20%, transparent 76%, rgba(0, 0, 0, 0.58)),
+        radial-gradient(ellipse at center, transparent 0 46%, rgba(0, 0, 0, 0.68) 100%),
+        repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 4px);
+      opacity: 0.9;
     }
 
     .terminal {
       position: relative;
       z-index: 1;
-      width: min(100%, 1220px);
+      width: min(100%, 1240px);
       border: 1px solid var(--line);
       border-radius: 8px;
       overflow: hidden;
       background: rgba(6, 8, 10, 0.94);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.08) inset,
         0 34px 94px rgba(0, 0, 0, 0.6),
-        0 0 90px rgba(120, 202, 255, 0.08);
+        0 0 80px rgba(120, 202, 255, 0.07),
+        0 0 96px rgba(244, 215, 125, 0.08);
     }
 
     .topbar {
@@ -110,8 +117,8 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 0.82fr 1.18fr;
-      min-height: 650px;
+      grid-template-columns: 0.78fr 1.22fr;
+      min-height: 690px;
     }
 
     .intro {
@@ -121,14 +128,15 @@
       padding: clamp(28px, 5vw, 58px);
       border-right: 1px solid var(--line);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 45%),
+        linear-gradient(116deg, rgba(244, 215, 125, 0.055), transparent 48%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 45%),
         var(--panel);
     }
 
     h1 {
       max-width: 650px;
       margin: 0;
-      font-size: clamp(42px, 6vw, 74px);
+      font-size: clamp(42px, 6vw, 72px);
       line-height: 0.96;
       letter-spacing: 0;
     }
@@ -161,11 +169,14 @@
       border-left: 1px solid var(--line);
     }
 
-    .scope span {
+    .scope span,
+    .code span,
+    .meta span,
+    .class {
       color: var(--muted);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 850;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
@@ -176,16 +187,16 @@
 
     .matrix {
       display: grid;
-      grid-template-rows: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(4, minmax(0, 1fr));
     }
 
     .row {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(120px, 0.35fr) minmax(0, 1fr) minmax(130px, 0.32fr) 46px;
+      grid-template-columns: minmax(116px, 0.32fr) minmax(0, 1fr) minmax(128px, 0.3fr) 46px;
       gap: 22px;
       align-items: center;
-      padding: clamp(22px, 3vw, 36px);
+      padding: clamp(20px, 2.6vw, 34px);
       color: inherit;
       text-decoration: none;
       background: var(--panel);
@@ -194,6 +205,16 @@
 
     .row + .row {
       border-top: 1px solid var(--line);
+    }
+
+    .row::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      opacity: 0;
+      background: currentColor;
+      transition: opacity var(--fast);
     }
 
     .row:hover,
@@ -205,51 +226,76 @@
       z-index: 2;
     }
 
+    .row:hover::before,
+    .row:focus-visible::before {
+      opacity: 1;
+    }
+
+    .spx::before {
+      background: var(--blue);
+    }
+
+    .hsi::before {
+      background: var(--green);
+    }
+
+    .btc::before {
+      background: var(--btc);
+    }
+
+    .gld::before {
+      background: var(--champagne);
+    }
+
     .row:focus-visible {
       box-shadow: 0 0 0 2px rgba(120, 202, 255, 0.72);
     }
 
-    .code {
+    .code,
+    .copy,
+    .meta {
       display: grid;
+    }
+
+    .code {
       gap: 10px;
     }
 
-    .code span,
-    .meta span,
-    .class {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-    }
-
     .code strong {
-      font-size: clamp(36px, 5vw, 58px);
+      font-size: clamp(34px, 4.7vw, 56px);
       line-height: 0.9;
       letter-spacing: 0;
     }
 
-    .spx .code strong {
+    .spx .code strong,
+    .spx .launch {
       color: var(--blue);
     }
 
-    .hsi .code strong {
+    .hsi .code strong,
+    .hsi .launch {
       color: var(--green);
     }
 
-    .btc .code strong {
-      color: var(--gold);
+    .btc .code strong,
+    .btc .launch,
+    .btc .class {
+      color: var(--btc);
+    }
+
+    .gld .code strong,
+    .gld .launch,
+    .gld .metal {
+      color: var(--champagne);
     }
 
     .copy {
-      display: grid;
-      gap: 11px;
+      gap: 10px;
     }
 
     h2 {
       margin: 0;
-      font-size: clamp(25px, 3vw, 38px);
+      font-size: clamp(23px, 2.6vw, 34px);
       line-height: 1.04;
       letter-spacing: 0;
     }
@@ -261,7 +307,6 @@
     }
 
     .meta {
-      display: grid;
       gap: 8px;
       color: var(--soft);
       font-size: 14px;
@@ -280,7 +325,6 @@
       place-items: center;
       border: 1px solid var(--line-strong);
       border-radius: 50%;
-      color: var(--blue);
       font-size: 20px;
       font-weight: 850;
       transition: transform var(--fast), background var(--fast);
@@ -296,7 +340,7 @@
       background: rgba(255, 255, 255, 0.065);
     }
 
-    @media (max-width: 940px) {
+    @media (max-width: 980px) {
       .layout {
         grid-template-columns: 1fr;
         min-height: auto;
@@ -370,18 +414,18 @@
   <main class="terminal">
     <div class="topbar">
       <span>Belling Xu / Signal Infrastructure</span>
-      <span>SPX / HSI / BTC</span>
+      <span>SPX / HSI / BTC / GLD</span>
     </div>
 
     <div class="layout">
       <section class="intro" aria-label="Console introduction">
         <div>
           <h1>Timing Signal Matrix</h1>
-          <p class="lead">One institutional gateway for systematic dashboards across global equity benchmarks and Bitcoin.</p>
+          <p class="lead">One institutional gateway for systematic dashboards across equity benchmarks, digital assets, and gold exposure.</p>
         </div>
 
         <div class="scope" aria-label="Coverage summary">
-          <div><span>Systems</span><strong>03</strong></div>
+          <div><span>Systems</span><strong>04</strong></div>
           <div><span>Assets</span><strong>Multi</strong></div>
           <div><span>Mode</span><strong>Live</strong></div>
         </div>
@@ -435,6 +479,23 @@
           <div class="meta">
             <span>Benchmark</span>
             <strong>Bitcoin</strong>
+          </div>
+          <span class="launch" aria-hidden="true"></span>
+        </a>
+
+        <a class="row gld" href="https://timing-gld.pages.dev" target="_blank" rel="noopener noreferrer">
+          <div class="code">
+            <span>Precious Metal</span>
+            <strong>GLD</strong>
+          </div>
+          <div class="copy">
+            <span class="class metal">Gold Timing Dashboard</span>
+            <h2>GLD Timing</h2>
+            <p>Systematic timing signals for gold ETF market exposure.</p>
+          </div>
+          <div class="meta">
+            <span>Benchmark</span>
+            <strong>SPDR Gold Shares</strong>
           </div>
           <span class="launch" aria-hidden="true"></span>
         </a>
