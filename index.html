@@ -4,102 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <title>Market Timing Systems | GLD Matrix Option</title>
+  <title>Signal Command Grid | Six Systems</title>
   <style>
     :root {
-      --bg: #040506;
+      --bg: #030405;
       --ink: #f5f7f8;
-      --muted: #88939d;
-      --soft: #c2cad2;
-      --panel: #080b0d;
-      --panel-2: #10151a;
-      --line: rgba(211, 220, 229, 0.15);
-      --line-strong: rgba(211, 220, 229, 0.34);
-      --green: #73dfa5;
+      --soft: #bec8cf;
+      --muted: #808b94;
+      --panel: #070a0d;
+      --panel-2: #0f1418;
+      --line: rgba(218,226,233,0.15);
+      --line-strong: rgba(218,226,233,0.34);
       --blue: #78caff;
-      --btc: #ff8a64;
-      --gold: #e7bf68;
-      --champagne: #f4d77d;
-      --steel: #9aa7b3;
-      --fast: 180ms ease;
+      --green: #73dfa5;
+      --orange: #ff8a64;
+      --gold: #f4d77d;
+      --mint: #b8f1c5;
+      --violet: #c7b7ff;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      position: relative;
       min-height: 100vh;
       margin: 0;
       display: grid;
       place-items: center;
-      padding: clamp(16px, 4vw, 46px);
+      padding: clamp(14px, 4vw, 44px);
       color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        linear-gradient(124deg, transparent 0 18%, rgba(120, 202, 255, 0.075) 18.2%, transparent 19.2% 62%, rgba(244, 215, 125, 0.08) 62.2%, transparent 63.2%),
-        linear-gradient(38deg, rgba(244, 215, 125, 0.1), transparent 30%),
-        linear-gradient(144deg, rgba(120, 202, 255, 0.09), transparent 42%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.052), transparent 22%, rgba(0, 0, 0, 0.34) 100%),
-        var(--bg);
-      background-size: 30px 30px, 30px 30px, auto, auto, auto, auto, auto;
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(58deg, rgba(184,241,197,0.07), transparent 30%),
+        linear-gradient(138deg, rgba(120,202,255,0.075), transparent 42%),
+        #030405;
+      background-size: 32px 32px, 32px 32px, auto, auto, auto;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
-    body::before,
     body::after {
       content: "";
       position: fixed;
       inset: 0;
+      background: radial-gradient(ellipse at center, transparent 0 48%, rgba(0,0,0,0.72) 100%), repeating-linear-gradient(180deg, rgba(255,255,255,0.014) 0 1px, transparent 1px 5px);
       pointer-events: none;
-    }
-
-    body::before {
-      z-index: 0;
-      background:
-        repeating-linear-gradient(90deg, rgba(120, 202, 255, 0.045) 0 1px, transparent 1px 120px),
-        repeating-linear-gradient(0deg, rgba(244, 215, 125, 0.036) 0 1px, transparent 1px 104px),
-        linear-gradient(112deg, transparent 0 24%, rgba(120, 202, 255, 0.09) 24.2%, transparent 25.1% 46%, rgba(255, 138, 100, 0.055) 46.2%, transparent 47.1% 72%, rgba(244, 215, 125, 0.07) 72.2%, transparent 73.1%),
-        linear-gradient(68deg, rgba(255, 255, 255, 0.026) 0 1px, transparent 1px 43%, rgba(255, 255, 255, 0.035) 43.1%, transparent 43.7%);
-      opacity: 0.78;
-      mix-blend-mode: screen;
-    }
-
-    body::after {
-      z-index: 0;
-      background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.54), transparent 20%, transparent 76%, rgba(0, 0, 0, 0.58)),
-        radial-gradient(ellipse at center, transparent 0 46%, rgba(0, 0, 0, 0.68) 100%),
-        repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 4px);
-      opacity: 0.9;
     }
 
     .terminal {
       position: relative;
       z-index: 1;
-      width: min(100%, 1240px);
+      width: min(100%, 1260px);
       border: 1px solid var(--line);
       border-radius: 8px;
       overflow: hidden;
-      background: rgba(6, 8, 10, 0.94);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.08) inset,
-        0 34px 94px rgba(0, 0, 0, 0.6),
-        0 0 80px rgba(120, 202, 255, 0.07),
-        0 0 96px rgba(244, 215, 125, 0.08);
+      background: rgba(6,8,10,0.96);
+      box-shadow: 0 36px 104px rgba(0,0,0,0.66), 0 0 90px rgba(120,202,255,0.06);
     }
 
     .topbar {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 18px;
-      align-items: center;
       padding: 15px 18px;
       border-bottom: 1px solid var(--line);
       color: var(--muted);
@@ -107,400 +73,222 @@
       font-weight: 850;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.025);
+      background: rgba(255,255,255,0.025);
     }
 
-    .topbar span:last-child {
-      color: var(--steel);
-      text-align: right;
-    }
-
-    .layout {
+    .header {
       display: grid;
-      grid-template-columns: 0.78fr 1.22fr;
-      min-height: 690px;
-    }
-
-    .intro {
-      display: grid;
-      align-content: space-between;
-      gap: 44px;
-      padding: clamp(28px, 5vw, 58px);
-      border-right: 1px solid var(--line);
-      background:
-        linear-gradient(116deg, rgba(244, 215, 125, 0.055), transparent 48%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 45%),
-        var(--panel);
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: end;
+      padding: clamp(28px, 4.4vw, 48px);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(120deg, rgba(184,241,197,0.055), transparent 44%), var(--panel);
     }
 
     h1 {
-      max-width: 650px;
+      max-width: 760px;
       margin: 0;
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 0.96;
+      font-size: clamp(40px, 5vw, 60px);
+      line-height: 0.98;
       letter-spacing: 0;
     }
 
     .lead {
-      max-width: 520px;
-      margin: 20px 0 0;
+      max-width: 640px;
+      margin: 16px 0 0;
       color: var(--soft);
       font-size: 17px;
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
-    .scope {
+    .count {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      min-width: 174px;
+      padding: 18px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      overflow: hidden;
+      text-align: right;
+      background: rgba(255,255,255,0.025);
     }
 
-    .scope div {
-      min-height: 84px;
-      display: grid;
-      align-content: center;
-      gap: 6px;
-      padding: 14px;
-    }
-
-    .scope div + div {
-      border-left: 1px solid var(--line);
-    }
-
-    .scope span,
-    .code span,
-    .meta span,
-    .class {
+    .count span,
+    .card span,
+    .chip {
       color: var(--muted);
       font-size: 12px;
       font-weight: 850;
-      letter-spacing: 0.11em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .scope strong {
-      font-size: 24px;
-      line-height: 1;
-    }
+    .count strong { font-size: 36px; line-height: 1; }
 
-    .matrix {
+    .grid {
       display: grid;
-      grid-template-rows: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .row {
+    .card {
       position: relative;
+      min-height: 250px;
       display: grid;
-      grid-template-columns: minmax(116px, 0.32fr) minmax(0, 1fr) minmax(128px, 0.3fr) 46px;
-      gap: 22px;
-      align-items: center;
-      padding: clamp(20px, 2.6vw, 34px);
+      align-content: space-between;
+      gap: 26px;
+      padding: clamp(22px, 2.6vw, 32px);
       color: inherit;
       text-decoration: none;
       background: var(--panel);
-      transition: transform var(--fast), background var(--fast), box-shadow var(--fast);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
-    .row + .row {
-      border-top: 1px solid var(--line);
-    }
+    .card:nth-child(3n) { border-right: 0; }
 
-    .row::before {
+    .card::before {
       content: "";
       position: absolute;
-      inset: 0 auto 0 0;
-      width: 3px;
-      opacity: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
       background: currentColor;
-      transition: opacity var(--fast);
+      opacity: 0.52;
     }
 
-    .row:hover,
-    .row:focus-visible {
-      transform: translateY(-3px);
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-4px);
       background: var(--panel-2);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 22px 58px rgba(0, 0, 0, 0.36);
+      box-shadow: 0 22px 58px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.08);
       outline: none;
       z-index: 2;
     }
 
-    .row:hover::before,
-    .row:focus-visible::before {
-      opacity: 1;
-    }
-
-    .spx::before {
-      background: var(--blue);
-    }
-
-    .hsi::before {
-      background: var(--green);
-    }
-
-    .btc::before {
-      background: var(--btc);
-    }
-
-    .gld::before {
-      background: var(--champagne);
-    }
-
-    .row:focus-visible {
-      box-shadow: 0 0 0 2px rgba(120, 202, 255, 0.72);
-    }
-
-    .code,
-    .copy,
-    .meta {
-      display: grid;
-    }
-
     .code {
+      display: grid;
       gap: 10px;
+      min-width: 0;
     }
 
     .code strong {
-      font-size: clamp(34px, 4.7vw, 56px);
-      line-height: 0.9;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 0.95;
       letter-spacing: 0;
-    }
-
-    .spx .code strong,
-    .spx .launch {
-      color: var(--blue);
-    }
-
-    .hsi .code strong,
-    .hsi .launch {
-      color: var(--green);
-    }
-
-    .btc .code strong,
-    .btc .launch,
-    .btc .class {
-      color: var(--btc);
-    }
-
-    .gld .code strong,
-    .gld .launch,
-    .gld .metal {
-      color: var(--champagne);
-    }
-
-    .copy {
-      gap: 10px;
+      overflow-wrap: anywhere;
     }
 
     h2 {
-      margin: 0;
-      font-size: clamp(23px, 2.6vw, 34px);
-      line-height: 1.04;
+      margin: 14px 0 0;
+      font-size: clamp(22px, 2.4vw, 30px);
+      line-height: 1.05;
       letter-spacing: 0;
     }
 
     p {
-      margin: 0;
+      margin: 12px 0 0;
       color: var(--soft);
-      line-height: 1.58;
+      line-height: 1.56;
     }
 
-    .meta {
-      gap: 8px;
-      color: var(--soft);
-      font-size: 14px;
-      text-align: right;
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .meta strong {
-      color: var(--ink);
-      font-size: 16px;
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.025);
+      font-style: normal;
+      white-space: nowrap;
     }
 
-    .launch {
-      width: 46px;
-      height: 46px;
+    .arrow {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
       display: grid;
       place-items: center;
       border: 1px solid var(--line-strong);
       border-radius: 50%;
-      font-size: 20px;
-      font-weight: 850;
-      transition: transform var(--fast), background var(--fast);
+      font-size: 19px;
+      font-weight: 900;
     }
 
-    .launch::before {
-      content: ">";
-    }
-
-    .row:hover .launch,
-    .row:focus-visible .launch {
-      transform: translateX(4px);
-      background: rgba(255, 255, 255, 0.065);
-    }
+    .spx { color: var(--blue); }
+    .hsi { color: var(--green); }
+    .btc { color: var(--orange); }
+    .gld { color: var(--gold); }
+    .etf { color: var(--mint); }
+    .strategy { color: var(--violet); }
 
     @media (max-width: 980px) {
-      .layout {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .intro {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
+      .header { grid-template-columns: 1fr; }
+      .count { text-align: left; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card:nth-child(3n) { border-right: 1px solid var(--line); }
+      .card:nth-child(2n) { border-right: 0; }
     }
 
-    @media (max-width: 720px) {
-      .topbar {
-        grid-template-columns: 1fr;
-      }
-
-      .scope {
-        grid-template-columns: 1fr;
-      }
-
-      .scope div + div {
-        border-left: 0;
-        border-top: 1px solid var(--line);
-      }
-
-      .row {
-        grid-template-columns: minmax(0, 1fr) 46px;
-        gap: 18px;
-      }
-
-      .code,
-      .copy,
-      .meta {
-        grid-column: 1;
-      }
-
-      .meta {
-        text-align: left;
-      }
-
-      .launch {
-        grid-column: 2;
-        grid-row: 1;
-      }
-    }
-
-    @media (max-width: 460px) {
-      body {
-        padding: 8px;
-      }
-
-      .topbar,
-      .intro,
-      .row {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-      h1 {
-        font-size: clamp(38px, 12vw, 52px);
-      }
-
-      .lead,
-      p {
-        font-size: 15px;
-      }
+    @media (max-width: 620px) {
+      .topbar { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .card,
+      .card:nth-child(3n) { border-right: 0; }
+      .foot { align-items: flex-start; }
     }
   </style>
 </head>
 <body>
   <main class="terminal">
     <div class="topbar">
-      <span>Belling Xu / Signal Infrastructure</span>
-      <span>SPX / HSI / BTC / GLD</span>
+      <span>Belling Xu / Command Grid</span>
+      <span>Six Equal Systems</span>
     </div>
+    <header class="header">
+      <div>
+        <h1>Institutional Timing Gateway</h1>
+        <p class="lead">A balanced command surface for timing signals, ETF exposure, and automated quantitative strategy operations.</p>
+      </div>
+      <div class="count"><span>Systems Online</span><strong>06</strong></div>
+    </header>
 
-    <div class="layout">
-      <section class="intro" aria-label="Console introduction">
-        <div>
-          <h1>Timing Signal Matrix</h1>
-          <p class="lead">One institutional gateway for systematic dashboards across equity benchmarks, digital assets, and gold exposure.</p>
-        </div>
-
-        <div class="scope" aria-label="Coverage summary">
-          <div><span>Systems</span><strong>04</strong></div>
-          <div><span>Assets</span><strong>Multi</strong></div>
-          <div><span>Mode</span><strong>Live</strong></div>
-        </div>
-      </section>
-
-      <section class="matrix" aria-label="Dashboard links">
-        <a class="row spx" href="https://timing-spx.pages.dev" target="_blank" rel="noopener noreferrer">
-          <div class="code">
-            <span>US Equity</span>
-            <strong>SPX</strong>
-          </div>
-          <div class="copy">
-            <span class="class">Benchmark Dashboard</span>
-            <h2>SPX Timing</h2>
-            <p>Systematic timing signals for US market exposure.</p>
-          </div>
-          <div class="meta">
-            <span>Benchmark</span>
-            <strong>S&amp;P 500</strong>
-          </div>
-          <span class="launch" aria-hidden="true"></span>
-        </a>
-
-        <a class="row hsi" href="https://timing-hsi.pages.dev" target="_blank" rel="noopener noreferrer">
-          <div class="code">
-            <span>Hong Kong Equity</span>
-            <strong>HSI</strong>
-          </div>
-          <div class="copy">
-            <span class="class">Benchmark Dashboard</span>
-            <h2>HSI Timing</h2>
-            <p>Systematic timing signals for Hong Kong market exposure.</p>
-          </div>
-          <div class="meta">
-            <span>Benchmark</span>
-            <strong>Hang Seng Index</strong>
-          </div>
-          <span class="launch" aria-hidden="true"></span>
-        </a>
-
-        <a class="row btc" href="https://timing-btc.pages.dev" target="_blank" rel="noopener noreferrer">
-          <div class="code">
-            <span>Digital Asset</span>
-            <strong>BTC</strong>
-          </div>
-          <div class="copy">
-            <span class="class">Digital Asset Dashboard</span>
-            <h2>BTC Timing</h2>
-            <p>Systematic timing signals for Bitcoin market exposure.</p>
-          </div>
-          <div class="meta">
-            <span>Benchmark</span>
-            <strong>Bitcoin</strong>
-          </div>
-          <span class="launch" aria-hidden="true"></span>
-        </a>
-
-        <a class="row gld" href="https://timing-gld.pages.dev" target="_blank" rel="noopener noreferrer">
-          <div class="code">
-            <span>Precious Metal</span>
-            <strong>GLD</strong>
-          </div>
-          <div class="copy">
-            <span class="class metal">Gold Timing Dashboard</span>
-            <h2>GLD Timing</h2>
-            <p>Systematic timing signals for gold ETF market exposure.</p>
-          </div>
-          <div class="meta">
-            <span>Benchmark</span>
-            <strong>SPDR Gold Shares</strong>
-          </div>
-          <span class="launch" aria-hidden="true"></span>
-        </a>
-      </section>
-    </div>
+    <section class="grid" aria-label="Dashboard links">
+      <a class="card spx" href="https://timing-spx.pages.dev" target="_blank" rel="noopener noreferrer">
+        <div><span>US Equity</span><div class="code"><strong>SPX</strong></div><h2>SPX Timing</h2><p>Systematic timing signals for US market exposure.</p></div>
+        <div class="foot"><i class="chip">S&amp;P 500</i><i class="arrow">&gt;</i></div>
+      </a>
+      <a class="card hsi" href="https://timing-hsi.pages.dev" target="_blank" rel="noopener noreferrer">
+        <div><span>Hong Kong Equity</span><div class="code"><strong>HSI</strong></div><h2>HSI Timing</h2><p>Systematic timing signals for Hong Kong market exposure.</p></div>
+        <div class="foot"><i class="chip">Hang Seng</i><i class="arrow">&gt;</i></div>
+      </a>
+      <a class="card btc" href="https://timing-btc.pages.dev" target="_blank" rel="noopener noreferrer">
+        <div><span>Digital Asset</span><div class="code"><strong>BTC</strong></div><h2>BTC Timing</h2><p>Systematic timing signals for Bitcoin market exposure.</p></div>
+        <div class="foot"><i class="chip">Bitcoin</i><i class="arrow">&gt;</i></div>
+      </a>
+      <a class="card gld" href="https://timing-gld.pages.dev" target="_blank" rel="noopener noreferrer">
+        <div><span>Precious Metal</span><div class="code"><strong>GLD</strong></div><h2>GLD Timing</h2><p>Systematic timing signals for gold ETF market exposure.</p></div>
+        <div class="foot"><i class="chip">SPDR Gold</i><i class="arrow">&gt;</i></div>
+      </a>
+      <a class="card etf" href="https://timing-512890.pages.dev" target="_blank" rel="noopener noreferrer">
+        <div><span>Dividend Low Vol</span><div class="code"><strong>512890</strong></div><h2>Hi_Divi & Low_Vol </h2><p>Timing signals for high-dividend, low-volatility ETF exposure.</p></div>
+        <div class="foot"><i class="chip">ETF Code</i><i class="arrow">&gt;</i></div>
+      </a>
+      <a class="card strategy" href="#" aria-label="Strategy dashboard link placeholder">
+        <div><span>Quant Ops</span><div class="code"><strong>Strategy</strong></div><h2>Strategy Operations</h2><p>Automated run status, execution health, and monitoring for quantitative strategies.</p></div>
+        <div class="foot"><i class="chip">Link Pending</i><i class="arrow">&gt;</i></div>
+      </a>
+    </section>
   </main>
 </body>
 </html>
