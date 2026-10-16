@@ -118,6 +118,38 @@
       .desk { min-height: 380px; }
       footer { padding: 18px 20px 28px; flex-direction: column; gap: 6px; }
     }
+    /* ---- 手机（≤600px）：紧凑排版，底部改成整行的进入按钮 ---- */
+    @media (max-width: 600px) {
+      .top { height: 52px; padding: 0 16px; }
+      .brand span, kbd, footer .keys { display: none; }
+      main { padding: 36px 16px 16px; }
+      .eyebrow { margin-bottom: 14px; }
+      h1 { font-size: 34px; }
+      .lede { margin-bottom: 28px; font-size: 15px; }
+      .desks { gap: 16px; }
+      .desk { min-height: 0; padding: 22px 20px 18px; }
+      .desk-head { margin-bottom: 16px; }
+      .desk h2 { font-size: 28px; }
+      .desk .sub { font-size: 13.5px; }
+      .chart { flex: none; height: 140px; min-height: 0; margin: 18px 0 12px; }
+      .coverage { font-size: 11.5px; word-break: keep-all; }
+      .nw { white-space: nowrap; }
+      .desk-foot { flex-direction: column; align-items: stretch; gap: 14px; line-height: 1.4; }
+      .enter {
+        justify-content: center; min-height: 46px; margin: 0; padding: 0 12px; font-size: 14px;
+        background: var(--accent); color: var(--on-accent);
+      }
+      footer { padding: 8px 16px 28px; }
+    }
+    /* ---- 触屏：没有「移开鼠标」，不做选中 / 变暗，按下时给一点反馈 ---- */
+    @media (hover: none) {
+      .desk:hover, .desk.selected {
+        transform: none; box-shadow: none; background-image: none; border-color: var(--border-strong);
+      }
+      .desk:hover::before, .desk.selected::before { width: 64px; }
+      .desks.has-selection .desk:not(.selected) { opacity: 1; }
+      .desk:active { border-color: var(--accent-line); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .desk, .desk::before, .enter span { transition: none; }
     }
@@ -151,7 +183,7 @@
         <div class="chart"><canvas data-seed="7"></canvas></div>
         <div class="coverage">S&amp;P 500 · Nasdaq 100 · Treasuries · Gold · Crude Oil · Bitcoin</div>
         <div class="desk-foot">
-          <span>NYSE 09:30–16:00 ET · New York <b data-tz="America/New_York">--:--:--</b></span>
+          <span>NYSE 09:30–16:00 ET · <span class="nw">New York <b data-tz="America/New_York">--:--:--</b></span></span>
           <span class="enter">Enter <span>→</span></span>
         </div>
       </a>
@@ -166,7 +198,7 @@
         <div class="chart"><canvas data-seed="11"></canvas></div>
         <div class="coverage">上证指数 · 沪深300 · 中证1000 · 科创50 · 创业板指 · 恒生指数</div>
         <div class="desk-foot">
-          <span>SSE 09:30–11:30 · 13:00–15:00 · 北京 <b data-tz="Asia/Shanghai">--:--:--</b></span>
+          <span>SSE 09:30–11:30 · 13:00–15:00 · <span class="nw">北京 <b data-tz="Asia/Shanghai">--:--:--</b></span></span>
           <span class="enter">进入 <span>→</span></span>
         </div>
       </a>
@@ -175,7 +207,7 @@
 
   <footer>
     <span>For research purposes only. Not investment advice. 仅供研究参考，不构成投资建议。</span>
-    <span>Press U / C to select · Enter to open</span>
+    <span class="keys">Press U / C to select · Enter to open</span>
   </footer>
 
   <script>
@@ -259,8 +291,10 @@
       }
     };
     Chart.prototype.range = function (snap) {
-      var a = Infinity, b = -Infinity;
-      for (var i = 0; i < this.candles.length; i++) { a = Math.min(a, this.candles[i].l); b = Math.max(b, this.candles[i].h); }
+      // 只按画面里看得见的 K 线定上下范围（左侧屏幕外那些只用来算均线）
+      var a = Infinity, b = -Infinity, n = this.candles.length;
+      var first = Math.max(0, n - 1 - Math.ceil((this.headX + this.CW) / this.CW));
+      for (var i = first; i < n; i++) { a = Math.min(a, this.candles[i].l); b = Math.max(b, this.candles[i].h); }
       var pad = (b - a) * 0.1 + 0.3;
       a -= pad; b += pad;
       if (snap) { this.lo = a; this.hi = b; } else { this.lo += (a - this.lo) * 0.04; this.hi += (b - this.hi) * 0.04; }
