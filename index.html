@@ -3,226 +3,344 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0d10" />
   <link rel="icon" type="image/png" href="./icon.png" />
   <title>Bellingxu's Dashboard</title>
   <style>
     :root {
-      --bg: #f7f7f5; --ink: #16181d; --muted: #6d7280; --line: rgba(0,0,0,.10);
-      --us-bg: linear-gradient(160deg, #e8f0ff 0%, #f6f9ff 60%); --us-accent: #1d4ed8;
-      --cn-bg: linear-gradient(200deg, #ffece8 0%, #fff7f2 60%); --cn-accent: #c2410c;
-      --card: rgba(255,255,255,.7);
-    }
-    html.night {
-      --bg: #0b0c10; --ink: #ecedf2; --muted: #8b91a0; --line: rgba(255,255,255,.10);
-      --us-bg: linear-gradient(160deg, #0d1530 0%, #0b0e1a 60%); --us-accent: #7ba3ff;
-      --cn-bg: linear-gradient(200deg, #2a120b 0%, #180d08 60%); --cn-accent: #ff9466;
-      --card: rgba(255,255,255,.06);
+      --bg: #0b0d10; --panel: #111418; --border: #1f242a; --border-strong: #2d333b;
+      --text: #e7e4dc; --muted: #8b9098; --faint: #5f646c;
+      --serif-en: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --serif-cn: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", SimSun, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
-      font-family: "Inter", "Helvetica Neue", system-ui, sans-serif; transition: background .4s, color .4s; }
-    .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 5;
-      display: flex; justify-content: space-between; align-items: center; padding: 14px 22px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; }
-    .brand img { width: 24px; height: 24px; border-radius: 6px; }
-    .meta { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
-    #modeToggle { border: 1px solid var(--line); background: var(--card); color: var(--ink);
-      border-radius: 999px; font-size: 13px; padding: 4px 12px; cursor: pointer;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-    .split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
-    .half { display: flex; flex-direction: column; justify-content: center; gap: 22px;
-      padding: 96px clamp(24px, 5vw, 72px) 60px; position: relative; }
-    .half.us { background: var(--us-bg); }
-    .half.cn { background: var(--cn-bg); border-left: 1px solid var(--line); }
-    .region { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
-    .half.us .region { color: var(--us-accent); }
-    .half.cn .region { color: var(--cn-accent); }
-    a.hero { text-decoration: none; color: var(--ink); outline: none; display: block;
-      border-radius: 22px; padding: 26px 28px; margin: 0 -12px;
-      border: 2px solid transparent; transition: border-color .18s, background .18s, transform .18s; }
-    a.hero h2 { margin: 0; font-size: clamp(26px, 3.4vw, 44px); font-weight: 850; letter-spacing: -0.03em; line-height: 1.05; }
-    a.hero p { margin: 10px 0 0; color: var(--muted); font-size: 14.5px; max-width: 40ch; }
-    a.hero .cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
-      font-weight: 700; font-size: 14px; }
-    .half.us a.hero .cta { color: var(--us-accent); }
-    .half.cn a.hero .cta { color: var(--cn-accent); }
-    a.hero kbd { font-family: inherit; font-size: 12px; font-weight: 800; border: 1.5px solid currentColor;
-      border-radius: 7px; padding: 2px 9px; }
-    a.hero.selected, a.hero:hover, a.hero:focus-visible { background: var(--card); transform: translateY(-2px); }
-    .half.us a.hero.selected, .half.us a.hero:hover { border-color: var(--us-accent); }
-    .half.cn a.hero.selected, .half.cn a.hero:hover { border-color: var(--cn-accent); }
-    .minis { display: flex; gap: 10px; flex-wrap: wrap; }
-    a.mini { text-decoration: none; color: var(--ink); font-size: 13.5px; font-weight: 600;
-      border: 1px solid var(--line); background: var(--card); border-radius: 999px;
-      padding: 9px 16px; outline: none; transition: border-color .15s, transform .15s;
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-    a.mini span { color: var(--muted); font-weight: 450; }
-    .half.us a.mini.selected, .half.us a.mini:hover, .half.us a.mini:focus-visible { border-color: var(--us-accent); transform: translateY(-2px); }
-    .half.cn a.mini.selected, .half.cn a.mini:hover, .half.cn a.mini:focus-visible { border-color: var(--cn-accent); transform: translateY(-2px); }
-    .keys { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 5;
-      display: flex; gap: 16px; font-size: 12px; color: var(--muted); white-space: nowrap;
-      background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 7px 18px;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-    .keys b { color: var(--ink); font-weight: 700; }
-    @media (max-width: 780px) {
-      .split { grid-template-columns: 1fr; }
-      .half { padding: 80px 24px 40px; }
-      .half.cn { border-left: 0; border-top: 1px solid var(--line); }
-      .keys { display: none; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 var(--sans);
+      -webkit-font-smoothing: antialiased;
+      background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    /* ---- 顶栏 ---- */
+    .top {
+      position: sticky; top: 0; z-index: 2; height: 56px; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border); background: rgba(11,13,16,.92);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; }
+    .brand img { width: 26px; height: 26px; border-radius: 3px; }
+    .brand span { color: var(--muted); font-weight: 400; }
+    .clocks { display: flex; gap: 26px; font: 12px/1 var(--mono); color: var(--muted); }
+    .clocks em { font-style: normal; margin-right: 8px; }
+    .clocks b { font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; }
+    .today { padding-right: 26px; border-right: 1px solid var(--border-strong); color: var(--text); }
+
+    /* ---- 主体 ---- */
+    main { max-width: 1200px; margin: 0 auto; padding: 72px 48px 40px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 12px; margin: 0 0 18px;
+      font: 600 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--muted); }
+    h1 { margin: 0 0 14px; font: 600 56px/1.05 var(--serif-en); letter-spacing: -.01em; }
+    .lede { margin: 0 0 48px; max-width: 36em; font-size: 16px; color: #b3b0a8; }
+
+    .desks { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .desk {
+      --accent: #e8a33d; --accent-line: rgba(232,163,61,.75); --accent-wash: rgba(232,163,61,.09); --on-accent: #16120a;
+      --up: #3fae7a; --down: #d9534f;
+      position: relative; display: flex; flex-direction: column; min-height: 440px; padding: 28px 30px 24px;
+      color: var(--text); text-decoration: none; outline: none;
+      background: var(--panel); border: 1px solid var(--border-strong); border-radius: 3px;
+      transition: border-color .25s ease, transform .25s ease, opacity .3s ease, box-shadow .25s ease, background-color .25s ease;
+    }
+    .desk.cn { --accent: #d23a3a; --accent-line: rgba(210,58,58,.8); --accent-wash: rgba(210,58,58,.09); --on-accent: #fff; --up: #d9534f; --down: #3fae7a; }
+    /* 顶边强调色：平时一小段，悬停 / 选中时从左划满 */
+    .desk::before {
+      content: ""; position: absolute; left: -1px; top: -1px; height: 3px; width: 64px;
+      background: var(--accent); transition: width .45s ease;
+    }
+    /* 选中：整圈强调色边框 + 顶部一层淡淡的强调色 + 上浮；另一张卡片变暗 */
+    .desk:hover, .desk.selected {
+      border-color: var(--accent-line); transform: translateY(-4px);
+      background-image: linear-gradient(180deg, var(--accent-wash), transparent 45%);
+      box-shadow: 0 0 0 1px var(--accent-line), 0 24px 50px rgba(0,0,0,.5);
+    }
+    .desk:hover::before, .desk.selected::before { width: calc(100% + 2px); }
+    .desks.has-selection .desk:not(.selected) { opacity: .45; }
+
+    .desk-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; }
+    .desk-tag { font: 600 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+    .desk-tag i { font-style: normal; color: var(--faint); margin-right: 12px; }
+    kbd {
+      min-width: 26px; padding: 5px 7px; border: 1px solid var(--border-strong); border-radius: 3px;
+      font: 600 11px/1 var(--mono); color: var(--muted); text-align: center;
+      transition: color .25s, border-color .25s;
+    }
+    .desk:hover kbd, .desk.selected kbd { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
+    .desk h2 { margin: 0 0 8px; font: 600 34px/1.15 var(--serif-en); }
+    .desk.cn h2 { font-family: var(--serif-cn); letter-spacing: .06em; }
+    .desk .sub { margin: 0; font-size: 14px; color: #a9a69e; }
+
+    .chart { position: relative; flex: 1; min-height: 150px; margin: 22px 0 16px; }
+    .chart canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .75; transition: opacity .3s; }
+    .desk:hover .chart canvas, .desk.selected .chart canvas { opacity: 1; }
+
+    .coverage { padding: 12px 0; border-top: 1px solid var(--border); font: 12px/1.6 var(--mono); color: var(--muted); }
+    .desk-foot {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding-top: 12px; border-top: 1px solid var(--border); font: 12px/1 var(--mono); color: var(--muted);
+    }
+    .desk-foot b { font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; }
+    .enter {
+      display: flex; align-items: center; gap: 8px; margin: -8px -12px -8px 0; padding: 8px 12px; border-radius: 2px;
+      font: 600 13px/1 var(--sans); color: var(--accent); transition: background-color .25s ease, color .25s ease;
+    }
+    .enter span { display: inline-block; transition: transform .25s ease; }
+    .desk:hover .enter, .desk.selected .enter { background: var(--accent); color: var(--on-accent); }
+    .desk:hover .enter span, .desk.selected .enter span { transform: translateX(4px); }
+
+    footer {
+      max-width: 1200px; margin: 0 auto; padding: 18px 48px 32px;
+      display: flex; justify-content: space-between; gap: 24px; font: 11.5px/1.6 var(--mono); color: var(--faint);
+    }
+
+    @media (max-width: 900px) {
+      .top { padding: 0 20px; }
+      .clocks .city { display: none; }
+      .today { padding-right: 0; border-right: 0; }
+      main { padding: 48px 20px 24px; }
+      h1 { font-size: 40px; }
+      .desks { grid-template-columns: 1fr; }
+      .desk { min-height: 380px; }
+      footer { padding: 18px 20px 28px; flex-direction: column; gap: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .desk, .desk::before, .enter span { transition: none; }
     }
   </style>
 </head>
 <body>
-  <div class="bar">
-    <div class="brand"><img src="./icon.png" alt="" /> Bellingxu · Quant</div>
-    <div class="meta"><span id="clock">--:-- Tokyo</span><button id="modeToggle" title="Toggle theme (T)">◐ Theme</button></div>
-  </div>
+  <header class="top">
+    <div class="brand"><img src="./icon.png" alt="" />Bellingxu <span>· Quant Research</span></div>
+    <div class="clocks">
+      <span class="today" id="today"></span>
+      <span class="city"><em>New York</em><b data-tz="America/New_York">--:--:--</b></span>
+      <span class="city"><em>London</em><b data-tz="Europe/London">--:--:--</b></span>
+      <span class="city"><em>Beijing</em><b data-tz="Asia/Shanghai">--:--:--</b></span>
+      <span class="city"><em>Tokyo</em><b data-tz="Asia/Tokyo">--:--:--</b></span>
+    </div>
+  </header>
 
-  <div class="split">
-    <section class="half us">
-      <div class="region">United States</div>
-      <a class="hero" data-entry data-key="u" href="https://quantitative-strategy.pages.dev" target="_blank" rel="noopener noreferrer">
-        <h2>US Stock<br/>Market Overview</h2>
-        <p>Strategy operations console — run status, positions and system health.</p>
-        <span class="cta"><kbd>U</kbd> Press U or Enter →</span>
+  <main>
+    <p class="eyebrow">Research dashboards</p>
+    <h1>Markets Research</h1>
+    <p class="lede">Systematic timing models and market dashboards for global and China markets. Members only.</p>
+
+    <div class="desks">
+      <a class="desk us" data-key="u" href="https://quantitative-strategy.pages.dev" target="_blank" rel="noopener noreferrer">
+        <div class="desk-head">
+          <span class="desk-tag"><i>01</i>Global Markets</span>
+          <kbd>U</kbd>
+        </div>
+        <h2>Global Markets Dashboard</h2>
+        <p class="sub">US equities, cross-asset and macro timing models.</p>
+        <div class="chart"><canvas data-seed="7"></canvas></div>
+        <div class="coverage">S&amp;P 500 · Nasdaq 100 · Treasuries · Gold · Crude Oil · Bitcoin</div>
+        <div class="desk-foot">
+          <span>NYSE 09:30–16:00 ET · New York <b data-tz="America/New_York">--:--:--</b></span>
+          <span class="enter">Enter <span>→</span></span>
+        </div>
       </a>
-      <div class="minis">
-        <a class="mini" data-entry href="https://timing-btc.pages.dev" target="_blank" rel="noopener noreferrer">BTC <span>timing</span></a>
-        <a class="mini" data-entry href="https://timing-gld.pages.dev" target="_blank" rel="noopener noreferrer">GLD <span>timing</span></a>
-        <a class="mini" data-entry href="https://timing-spx.pages.dev" target="_blank" rel="noopener noreferrer">SPX <span>timing</span></a>
-      </div>
-    </section>
 
-    <section class="half cn">
-      <div class="region">Greater China</div>
-      <a class="hero" data-entry data-key="c" href="https://timing-ashare.pages.dev/dashboard" target="_blank" rel="noopener noreferrer">
-        <h2>China Stock<br/>Market Overview</h2>
-        <p>Mainland A-share timing console — regimes, signals and exposure.</p>
-        <span class="cta"><kbd>C</kbd> Press C or Enter →</span>
+      <a class="desk cn" data-key="c" href="https://timing-ashare.pages.dev/dashboard" target="_blank" rel="noopener noreferrer" lang="zh-CN">
+        <div class="desk-head">
+          <span class="desk-tag"><i>02</i>China Markets</span>
+          <kbd>C</kbd>
+        </div>
+        <h2>A股综合看板</h2>
+        <p class="sub">A-share · Hong Kong · Policy · RMB</p>
+        <div class="chart"><canvas data-seed="11"></canvas></div>
+        <div class="coverage">上证指数 · 沪深300 · 中证1000 · 科创50 · 创业板指 · 恒生指数</div>
+        <div class="desk-foot">
+          <span>SSE 09:30–11:30 · 13:00–15:00 · 北京 <b data-tz="Asia/Shanghai">--:--:--</b></span>
+          <span class="enter">进入 <span>→</span></span>
+        </div>
       </a>
-      <div class="minis">
-        <a class="mini" data-entry href="https://timing-hsi.pages.dev" target="_blank" rel="noopener noreferrer">HSI <span>timing</span></a>
-        <a class="mini" data-entry href="https://timing-512890.pages.dev" target="_blank" rel="noopener noreferrer">512890 <span>hi divi low vol</span></a>
-      </div>
-    </section>
-  </div>
+    </div>
+  </main>
 
-  <div class="keys">
-    <span><b>U</b> US</span><span><b>C</b> China</span><span><b>←→↑↓</b> Move</span><span><b>⏎</b> Open</span><span><b>T</b> Theme</span>
-  </div>
+  <footer>
+    <span>For research purposes only. Not investment advice. 仅供研究参考，不构成投资建议。</span>
+    <span>Press U / C to select · Enter to open</span>
+  </footer>
 
   <script>
   (function () {
-    var root = document.documentElement;
-    function tokyoHour() {
-      try { return +new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', hour: 'numeric', hour12: false }).format(new Date()); }
-      catch (e) { return new Date().getHours(); }
-    }
-    if (tokyoHour() < 6 || tokyoHour() >= 18) root.classList.add('night');
-
-    var clock = document.getElementById('clock');
+    // ---- 日期与各地时钟 ----
+    var clockEls = document.querySelectorAll("[data-tz]"), todayEl = document.getElementById("today");
     function tick() {
-      try { clock.textContent = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit' }).format(new Date()) + ' Tokyo'; }
-      catch (e) { clock.textContent = new Date().toTimeString().slice(0, 5); }
+      var now = new Date();
+      try {
+        todayEl.textContent = new Intl.DateTimeFormat("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" }).format(now);
+      } catch (e) {}
+      for (var i = 0; i < clockEls.length; i++) {
+        try {
+          clockEls[i].textContent = new Intl.DateTimeFormat("en-GB", {
+            timeZone: clockEls[i].getAttribute("data-tz"), hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+          }).format(now);
+        } catch (e) {}
+      }
     }
-    tick(); setInterval(tick, 15000);
-    document.getElementById('modeToggle').addEventListener('click', function () { root.classList.toggle('night'); });
+    tick();
+    setInterval(tick, 1000);
 
-    var groups = Array.prototype.slice.call(document.querySelectorAll('.half')).map(function (half) {
-      return {
-        hero: half.querySelector('a.hero[data-entry]'),
-        minis: Array.prototype.slice.call(half.querySelectorAll('a.mini[data-entry]'))
-      };
-    }).filter(function (group) { return group.hero; });
-    var entries = Array.prototype.slice.call(document.querySelectorAll('a[data-entry]'));
-    var activeSide = groups.findIndex(function (group) { return group.hero.dataset.key === 'u'; });
-    var activeMini = 0;
-    var activeMinis = groups.map(function () { return 0; });
-    var activeLevel = 'hero';
-    var selectedEntry = null;
-    if (activeSide < 0) activeSide = 0;
-    function clamp(i, length) {
-      return Math.max(0, Math.min(length - 1, i));
+    // ---- 键盘：U / C 选中，← → 切换，Enter 打开 ----
+    var desks = Array.prototype.slice.call(document.querySelectorAll(".desk"));
+    var container = document.querySelector(".desks");
+    var selected = null;
+    function select(desk, focus) {
+      selected = desk;
+      desks.forEach(function (d) { d.classList.toggle("selected", d === desk); });
+      container.classList.toggle("has-selection", !!desk);
+      if (desk && focus !== false) desk.focus();
     }
-    function wrap(i, length) {
-      return ((i % length) + length) % length;
-    }
-    function markSelected(entry, focus) {
-      selectedEntry = entry;
-      entries.forEach(function (a) { a.classList.toggle('selected', a === selectedEntry); });
-      if (focus !== false && selectedEntry) selectedEntry.focus();
-    }
-    function selectHero(side, focus) {
-      activeSide = wrap(side, groups.length);
-      activeMini = clamp(activeMinis[activeSide] || 0, groups[activeSide].minis.length);
-      activeLevel = 'hero';
-      markSelected(groups[activeSide].hero, focus);
-    }
-    function selectMini(side, mini, focus) {
-      activeSide = wrap(side, groups.length);
-      if (!groups[activeSide].minis.length) {
-        selectHero(activeSide, focus);
-        return;
-      }
-      activeMini = clamp(mini, groups[activeSide].minis.length);
-      activeMinis[activeSide] = activeMini;
-      activeLevel = 'mini';
-      markSelected(groups[activeSide].minis[activeMini], focus);
-    }
-    function selectEntry(entry, focus) {
-      groups.forEach(function (group, side) {
-        if (entry === group.hero) {
-          activeSide = side;
-          activeLevel = 'hero';
-        }
-        group.minis.forEach(function (mini, index) {
-          if (entry === mini) {
-            activeSide = side;
-            activeMini = index;
-            activeMinis[side] = index;
-            activeLevel = 'mini';
-          }
-        });
-      });
-      markSelected(entry, focus);
-    }
-    selectHero(activeSide, false);
-    entries.forEach(function (a) {
-      a.addEventListener('mouseenter', function () { selectEntry(a, false); });
-      a.addEventListener('focus', function () { selectEntry(a, false); });
+    desks.forEach(function (d) {
+      d.addEventListener("mouseenter", function () { select(d, false); });
+      d.addEventListener("focus", function () { select(d, false); });
+      d.addEventListener("mouseleave", function () { if (document.activeElement !== d) select(null, false); });
+      d.addEventListener("blur", function () { if (!d.matches(":hover")) select(null, false); });
     });
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener("keydown", function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      var k = e.key;
-      if (k === 'ArrowLeft') {
+      var k = e.key.toLowerCase(), i = desks.indexOf(selected);
+      if (k === "u" || k === "c") {
         e.preventDefault();
-        if (activeLevel === 'hero') selectHero(activeSide - 1);
-        else selectMini(activeSide, wrap(activeMini - 1, groups[activeSide].minis.length));
-      }
-      else if (k === 'ArrowRight') {
+        select(desks.filter(function (d) { return d.getAttribute("data-key") === k; })[0]);
+      } else if (k === "arrowleft" || k === "arrowright") {
         e.preventDefault();
-        if (activeLevel === 'hero') selectHero(activeSide + 1);
-        else selectMini(activeSide, wrap(activeMini + 1, groups[activeSide].minis.length));
+        select(desks[i < 0 ? 0 : (i + (k === "arrowright" ? 1 : desks.length - 1)) % desks.length]);
+      } else if (k === "enter" && selected && document.activeElement !== selected) {
+        selected.click();
       }
-      else if (k === 'ArrowDown') {
-        e.preventDefault();
-        if (activeLevel === 'hero') selectMini(activeSide, activeMini);
-        else selectMini(activeSide, activeMini);
-      }
-      else if (k === 'ArrowUp') {
-        e.preventDefault();
-        if (activeLevel === 'hero') selectHero(activeSide);
-        else selectHero(activeSide);
-      }
-      else if (k === 'Enter') { if (document.activeElement !== selectedEntry) selectedEntry.click(); }
-      else if (k === 'u' || k === 'U') { e.preventDefault(); selectHero(groups.findIndex(function (group) { return group.hero.dataset.key === 'u'; })); }
-      else if (k === 'c' || k === 'C') { e.preventDefault(); selectHero(groups.findIndex(function (group) { return group.hero.dataset.key === 'c'; })); }
-      else if (k === 't' || k === 'T') { root.classList.toggle('night'); }
     });
+
+    // ---- 卡片里的装饰 K 线（随机走势，不代表任何真实行情） ----
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function rgba(hex, a) {
+      var n = parseInt(hex.slice(1), 16);
+      return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+    }
+    function gauss() {
+      return Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
+    }
+
+    function Chart(canvas) {
+      var css = getComputedStyle(canvas.closest(".desk"));
+      this.acc = css.getPropertyValue("--accent").trim();
+      this.up = css.getPropertyValue("--up").trim();
+      this.down = css.getPropertyValue("--down").trim();
+      this.cv = canvas; this.ctx = canvas.getContext("2d");
+      this.CW = 9; this.candles = []; this.shift = 0; this.since = 0; this.regime = 0; this.lo = 0; this.hi = 1;
+      this.resize();
+    }
+    Chart.prototype.newCandle = function (open) {
+      this.regime += gauss() * 0.004 - this.regime * 0.06;
+      return { o: open, c: open, h: open, l: open };
+    };
+    Chart.prototype.grow = function (c, steps) {
+      for (var s = 0; s < steps; s++) {
+        c.c += gauss() * 0.2 + this.regime + 0.006;
+        if (c.c > c.h) c.h = c.c;
+        if (c.c < c.l) c.l = c.c;
+      }
+    };
+    Chart.prototype.range = function (snap) {
+      var a = Infinity, b = -Infinity;
+      for (var i = 0; i < this.candles.length; i++) { a = Math.min(a, this.candles[i].l); b = Math.max(b, this.candles[i].h); }
+      var pad = (b - a) * 0.1 + 0.3;
+      a -= pad; b += pad;
+      if (snap) { this.lo = a; this.hi = b; } else { this.lo += (a - this.lo) * 0.04; this.hi += (b - this.hi) * 0.04; }
+    };
+    Chart.prototype.y = function (p) { return this.H - ((p - this.lo) / (this.hi - this.lo)) * this.H; };
+    Chart.prototype.resize = function () {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2), rect = this.cv.getBoundingClientRect();
+      this.W = rect.width; this.H = rect.height;
+      this.cv.width = this.W * dpr; this.cv.height = this.H * dpr;
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      this.headX = this.W - 6;
+      var need = Math.ceil(this.headX / this.CW) + 22, price = 100;
+      this.candles = [];
+      for (var i = 0; i < need; i++) { var c = this.newCandle(price); this.grow(c, 25); this.candles.push(c); price = c.c; }
+      this.range(true);
+    };
+    Chart.prototype.step = function (dt) {
+      var last = this.candles[this.candles.length - 1];
+      this.grow(last, 1);
+      this.since += dt;
+      if (this.since > 1500) {
+        this.since = 0;
+        this.candles.push(this.newCandle(last.c));
+        this.candles.shift();
+        this.shift = this.CW;
+      }
+      this.shift -= this.shift * Math.min(1, dt / 180);
+      this.range(false);
+    };
+    Chart.prototype.draw = function () {
+      var ctx = this.ctx, n = this.candles.length, bw = this.CW * 0.6, xs = [], i, c, col, self = this;
+      ctx.clearRect(0, 0, this.W, this.H);
+      for (i = 0; i < n; i++) xs.push(this.headX - (n - 1 - i) * this.CW + this.shift);
+      for (i = 0; i < n; i++) {
+        c = this.candles[i];
+        if (xs[i] < -this.CW) continue;
+        col = c.c >= c.o ? this.up : this.down;
+        var a = i === n - 1 ? 0.95 : 0.5;
+        ctx.strokeStyle = rgba(col, a); ctx.fillStyle = rgba(col, a); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(xs[i] + 0.5, this.y(c.h)); ctx.lineTo(xs[i] + 0.5, this.y(c.l)); ctx.stroke();
+        var top = this.y(Math.max(c.o, c.c)), bot = this.y(Math.min(c.o, c.c));
+        ctx.fillRect(xs[i] - bw / 2, top, bw, Math.max(1, bot - top));
+      }
+      function ma(len, color, width) {
+        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineJoin = "round"; ctx.beginPath();
+        var started = false, head = null;
+        for (var j = len - 1; j < n; j++) {
+          var sum = 0;
+          for (var k = j - len + 1; k <= j; k++) sum += self.candles[k].c;
+          var px = xs[j], py = self.y(sum / len);
+          if (started) ctx.lineTo(px, py); else { ctx.moveTo(px, py); started = true; }
+          head = [px, py];
+        }
+        ctx.stroke();
+        return head;
+      }
+      ma(30, "rgba(231,228,220,0.25)", 1);
+      var head = ma(10, rgba(this.acc, 0.9), 1.4);
+      var last = this.candles[n - 1], ly = Math.round(this.y(last.c)) + 0.5;
+      ctx.setLineDash([3, 5]);
+      ctx.strokeStyle = rgba(last.c >= last.o ? this.up : this.down, 0.45);
+      ctx.beginPath(); ctx.moveTo(0, ly); ctx.lineTo(this.W, ly); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = this.acc;
+      ctx.beginPath(); ctx.arc(head[0], head[1], 2.5, 0, Math.PI * 2); ctx.fill();
+    };
+
+    var charts = Array.prototype.slice.call(document.querySelectorAll(".chart canvas")).map(function (cv) { return new Chart(cv); });
+    window.addEventListener("resize", function () { charts.forEach(function (c) { c.resize(); c.draw(); }); });
+    charts.forEach(function (c) { c.draw(); });
+    if (!reduce) {
+      var lastT = 0;
+      (function frame(now) {
+        var dt = lastT ? Math.min(60, now - lastT) : 16;
+        lastT = now;
+        charts.forEach(function (c) { c.step(dt); c.draw(); });
+        requestAnimationFrame(frame);
+      })(performance.now());
+    }
   })();
   </script>
 </body>
 </html>
-
-
-
