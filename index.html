@@ -108,6 +108,225 @@
       display: flex; justify-content: space-between; gap: 24px; font: 11.5px/1.6 var(--mono); color: var(--faint);
     }
 
+
+    /* ---- 往下滚动：两个看板的亮点 ---- */
+    .story { --accent: #e8a33d; --on-accent: #16120a; --up: #3fae7a; --down: #d9534f; }
+    .c-us { --accent: #e8a33d; --on-accent: #16120a; }
+    .c-cn { --accent: #d23a3a; --on-accent: #fff; --up: #d9534f; --down: #3fae7a; }
+    .story { border-top: 1px solid var(--border); }
+    .sec { padding: 130px 48px; border-bottom: 1px solid var(--border); }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    .sec-label {
+      display: flex; align-items: center; gap: 12px; margin: 0 0 20px;
+      font: 600 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    }
+    .sec-label::before { content: ""; width: 28px; height: 1px; background: var(--muted); }
+    .sec h2 { max-width: 22em; margin: 0 0 18px; font: 600 46px/1.1 var(--serif-en); letter-spacing: -.01em; }
+    .sec-lede { max-width: 36em; margin: 0; font-size: 16.5px; line-height: 1.7; color: #b3b0a8; }
+    .rv {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s);
+    }
+    .rv.in { opacity: 1; transform: none; }
+
+    .glance { margin-top: 64px; border-top: 1px solid var(--border-strong); }
+    .g-row { display: grid; grid-template-columns: 220px repeat(4, 1fr); align-items: end; padding: 30px 0; border-bottom: 1px solid var(--border); }
+    .g-name { display: flex; align-items: center; gap: 10px; padding-bottom: 6px; font: 600 15px/1.2 var(--sans); }
+    .g-row[lang="zh-CN"] .g-name { font-family: var(--serif-cn); font-size: 17px; letter-spacing: .04em; }
+    .dot { width: 8px; height: 8px; border-radius: 1px; background: var(--accent); }
+    .num { padding-left: 24px; border-left: 1px solid var(--border); }
+    .num b { display: block; font: 600 56px/1 var(--serif-en); font-variant-numeric: tabular-nums; }
+    .num b i { margin-left: 3px; font-style: normal; color: var(--accent); }
+    .num em { display: block; margin-top: 12px; font: 11.5px/1 var(--mono); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+    .hl { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 56px; }
+    .hl-head {
+      display: flex; align-items: baseline; gap: 14px; padding-bottom: 16px; border-bottom: 2px solid var(--accent);
+      font: 600 26px/1.2 var(--serif-en);
+    }
+    .hl-col[lang="zh-CN"] .hl-head { font-family: var(--serif-cn); letter-spacing: .06em; }
+    .hl-head span { font: 600 12px/1 var(--mono); color: var(--accent); }
+    .hl ol { margin: 0; padding: 0; list-style: none; }
+    .hl li { display: grid; grid-template-columns: minmax(0, 1fr) 168px; gap: 24px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--border); }
+    .thumb { display: block; padding: 8px 10px; border: 1px solid var(--border); border-radius: 3px; background: var(--panel); }
+    .hl li b { display: block; margin-bottom: 6px; font: 600 18px/1.35 var(--sans); }
+    .hl li p { margin: 0; font-size: 14.5px; line-height: 1.7; color: #a9a69e; }
+
+    .cells { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 60px; border-top: 1px solid var(--border-strong); border-left: 1px solid var(--border); }
+    .cell { position: relative; padding: 30px 28px 34px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cell::before { content: ""; position: absolute; left: -1px; top: -1px; width: 0; height: 2px; background: var(--text); transition: width .5s ease; }
+    .cell:hover::before { width: calc(100% + 1px); }
+    .cell .tag { font: 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .cell h3 { margin: 0 0 8px; font: 600 22px/1.25 var(--serif-en); }
+    .three .cell h3 { margin-top: 16px; }
+    .cell p { margin: 0; font-size: 14.5px; line-height: 1.7; color: #a9a69e; }
+
+    .end { display: flex; align-items: center; min-height: calc(100vh - 56px); padding: 120px 48px; text-align: center; border-bottom: 0; }
+    .end .wrap { width: 100%; }
+    .end-mark { display: block; width: 44px; height: 44px; margin: 0 auto 28px; border-radius: 6px; }
+    .end h2 { margin: 0 auto 40px; }
+    .end-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+    .go {
+      display: inline-flex; align-items: center; gap: 12px; height: 54px; padding: 0 28px; border-radius: 3px;
+      background: var(--accent); color: var(--on-accent); text-decoration: none; font: 600 15px/1 var(--sans); transition: filter .2s;
+    }
+    .go[lang="zh-CN"] { letter-spacing: .08em; }
+    .go span { transition: transform .25s ease; }
+    .go:hover { filter: brightness(1.08); }
+    .go:hover span { transform: translateX(4px); }
+    .end-note { margin: 56px 0 0; font: 11.5px/1.6 var(--mono); color: var(--faint); }
+
+    /* ---- 示意图（研究框架 / 策略卡片） ---- */
+    .k-acc { --k: var(--accent); } .k-mut { --k: var(--muted); } .k-up { --k: var(--up); } .k-down { --k: var(--down); } .k-txt { --k: var(--text); }
+    .fig { display: block; width: 100%; height: auto; overflow: visible; }
+    .fig text { font: 11px var(--mono); fill: var(--muted); }
+    .fig .t-acc { fill: var(--accent); } .fig .t-txt, .fig .t-cell { fill: var(--text); } .fig .t-down { fill: var(--down); }
+    .fig .fg-grid { stroke: var(--border); stroke-width: 1; }
+    .fig .fg-base { stroke: var(--border-strong); stroke-width: 1; }
+    .fig .fg-guide { stroke: var(--border-strong); stroke-width: 1; stroke-dasharray: 2 3; }
+    .fig .s-acc { stroke: var(--accent); } .fig .s-mut { stroke: var(--muted); } .fig .s-faint { stroke: var(--border-strong); }
+    .fig .s-up { stroke: var(--up); } .fig .s-down { stroke: var(--down); } .fig .s-txt { stroke: var(--text); }
+    .fig .f-acc { fill: var(--accent); } .fig .f-mut { fill: var(--muted); } .fig .f-up { fill: var(--up); } .fig .f-down { fill: var(--down); } .fig .f-txt { fill: var(--text); }
+    .fig .f-mut.dim { fill-opacity: .28; }
+    .fig .fg-sep { stroke: var(--bg); stroke-width: 1.5; }
+    .fig .o0 { stroke-opacity: .85; } .fig .o1 { stroke-opacity: .65; } .fig .o2 { stroke-opacity: .5; } .fig .o3 { stroke-opacity: .38; }
+    .fg-ln {
+      fill: none; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round;
+      stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s cubic-bezier(.45,0,.2,1) var(--fd, 0s);
+    }
+    .fg-ln.thin { stroke-width: 1.2; }
+    .fig .fg-dash { fill: none; stroke-width: 1.2; stroke-dasharray: 4 4; }
+    .fig .fg-ring { fill: none; stroke-width: 1.2; transform-box: fill-box; transform-origin: center; }
+    .fg-fade { opacity: 0; transition: opacity .9s ease var(--fd, 0s); }
+    .fg-bar { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .7s cubic-bezier(.2,.7,.2,1) var(--fd, 0s); }
+    .fg-bar.neg { transform-origin: 50% 0; }
+    .fg-pop {
+      opacity: 0; transform: scale(.3); transform-box: fill-box; transform-origin: center;
+      transition: opacity .4s ease var(--fd, 0s), transform .5s cubic-bezier(.3,1.5,.5,1) var(--fd, 0s);
+    }
+    .seen .fg-ln, .in .fg-ln { stroke-dashoffset: 0; }
+    .seen .fg-fade, .in .fg-fade { opacity: 1; }
+    .seen .fg-bar, .in .fg-bar { transform: none; }
+    .seen .fg-pop, .in .fg-pop { opacity: 1; transform: none; }
+    .seen .fg-ring, .in .fg-ring { animation: ring 2.4s ease-out 2.2s infinite; }
+    @keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+
+    .figbox { margin: 0 0 34px; padding: 16px 18px 18px; border: 1px solid var(--border-strong); border-radius: 4px; background: var(--panel); }
+    .figbox figcaption { display: flex; justify-content: space-between; gap: 16px; font: 11.5px/1.3 var(--mono); letter-spacing: .04em; color: var(--text); }
+    .figbox figcaption em { flex: none; font-style: normal; color: var(--faint); }
+    .fig-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 12px 0 14px; font: 11px/1.2 var(--mono); color: var(--muted); }
+    .fig-legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .fig-legend i { flex: none; background: var(--k); }
+    .lg-ln { width: 14px; height: 2px; }
+    .lg-dash { width: 14px; height: 0; border-top: 1.5px dashed var(--k); background: none !important; }
+    .lg-box { width: 9px; height: 9px; opacity: .6; }
+    .lg-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .lg-dia { width: 7px; height: 7px; transform: rotate(45deg); }
+    .lg-tri, .lg-trid { width: 10px; height: 8px; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+    .lg-trid { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+    .fig-n { display: none; }
+    .card > .fig { margin: 0 0 26px; }
+
+    /* ---- 工具卡片上的小屏幕（循环演示，卡片进入视野后才播放） ---- */
+    .demo {
+      position: relative; height: 158px; margin: 0 0 26px; padding: 14px; overflow: hidden;
+      border: 1px solid var(--border-strong); border-radius: 4px; background: #0d1014;
+      font: 12px/1.3 var(--mono); color: var(--muted);
+    }
+    :not(.in) > .demo * { animation-play-state: paused !important; }
+    .demo .a1 { animation: dA 8s infinite; } .demo .a2 { animation: dB 8s infinite; }
+    .demo .a3 { animation: dC 8s infinite; } .demo .a4 { animation: dD 8s infinite; }
+    .demo svg { display: block; width: 100%; height: auto; }
+    .demo .la, .demo .lb { fill: none; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1 1; }
+    .demo .la { stroke: var(--accent); animation: dDrawA 8s infinite; }
+    .demo .lb { stroke: var(--text); animation: dDrawB 8s infinite; }
+
+    .d-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px;
+      border: 1px solid var(--border-strong); border-radius: 3px; font-size: 11px; color: var(--text); white-space: nowrap;
+    }
+    .chip i { width: 10px; height: 2px; background: var(--k); }
+    .chip.a3 { border-color: var(--accent); color: var(--accent); }
+
+    .d-lab .rule { display: flex; gap: 12px; align-items: baseline; padding: 6px 0; border-bottom: 1px dashed var(--border-strong); }
+    .d-lab .rule b { width: 40px; flex: none; font-weight: 600; color: var(--accent); }
+    .d-lab .rule span { color: var(--text); white-space: nowrap; }
+    .d-lab .run { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+    .go-run { flex: none; padding: 5px 9px; border-radius: 3px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 600; }
+    .d-lab .bar { flex: 1; height: 3px; overflow: hidden; background: var(--border-strong); }
+    .d-lab .bar i { display: block; height: 100%; background: var(--accent); transform-origin: left; animation: dFill 8s infinite; }
+    .d-lab .run em { flex: none; font-style: normal; color: var(--text); animation: dE 8s infinite; }
+
+    .d-board .row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 7px; padding: 8px 10px;
+      border: 1px solid var(--border); border-left: 2px solid var(--border-strong); border-radius: 2px;
+    }
+    .d-board .row.hot { border-left-color: var(--accent); background: rgba(255,255,255,.025); }
+    .d-board .row b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; color: var(--text); }
+    .d-board .row em { flex: none; font-style: normal; color: var(--faint); }
+    .ping { position: relative; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .ping::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); animation: dPing 1.8s ease-out infinite; }
+
+    .d-search .box { display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 10px; border: 1px solid var(--accent); border-radius: 3px; color: var(--text); }
+    .d-search .box svg { flex: none; width: 14px; height: 14px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+    .d-search .typed { display: inline-block; overflow: hidden; white-space: nowrap; width: var(--w); animation: dType 8s steps(9) infinite; }
+    .d-search .caret { width: 1.5px; height: 15px; background: var(--accent); animation: dBlink 1s steps(1) infinite; }
+    .d-search ol { margin: 8px 0 0; padding: 0; list-style: none; }
+    .d-search li { display: flex; justify-content: space-between; padding: 5px 10px; border-left: 2px solid transparent; color: var(--muted); white-space: nowrap; }
+    .d-search li.hit { border-left-color: var(--accent); background: rgba(255,255,255,.04); color: var(--text); }
+    .d-search kbd { min-width: 0; width: auto; height: auto; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: var(--faint); }
+
+    .d-health .row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); }
+    .d-health .row b { font-weight: 400; color: var(--text); }
+    .d-health em { padding: 2px 7px; border-radius: 2px; font-size: 10.5px; font-style: normal; letter-spacing: .06em; }
+    .d-health .ok { background: rgba(255,255,255,.05); color: var(--muted); }
+    .d-health .stale { background: rgba(240,181,74,.13); color: #f0b54a; animation: dSoft 1.6s ease-in-out infinite; }
+    .d-health .scan {
+      position: absolute; left: 0; right: 0; top: 0; height: 30px; transform: translateY(-40px); pointer-events: none;
+      background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.05)); border-bottom: 1px solid rgba(255,255,255,.14);
+      animation: dScan 3.2s linear infinite;
+    }
+
+    .d-share .mini { position: relative; padding: 8px 10px 20px; border: 1px solid var(--border); border-radius: 3px; background: var(--bg); }
+    .d-share .sig { position: absolute; right: 8px; bottom: 5px; font-size: 9.5px; color: var(--faint); }
+    .d-share .link { display: flex; align-items: center; gap: 8px; height: 30px; margin-top: 10px; padding: 0 10px; border: 1px solid var(--border-strong); border-radius: 3px; }
+    .d-share .link span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+    .d-share .link b { font-weight: 400; color: var(--accent); }
+    .d-share .toast { position: absolute; right: 14px; top: 14px; padding: 5px 9px; border-radius: 3px; background: var(--text); color: var(--bg); font-size: 11px; }
+
+    .d-brief .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; padding-bottom: 8px; border-bottom: 1px solid var(--border); color: var(--text); }
+    .d-brief .head span { width: 44px; height: 6px; border-radius: 3px; background: var(--border-strong); }
+    .d-brief .row { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+    .d-brief .row em { flex: none; width: 32px; font-style: normal; color: var(--accent); }
+    .d-brief .row i { width: var(--w); height: 6px; border-radius: 3px; background: var(--border-strong); }
+
+    .d-pipe { display: grid; grid-template-columns: repeat(4, 1fr); align-content: center; }
+    .d-pipe .rail { position: absolute; left: calc(14px + (100% - 28px) / 8); right: calc(14px + (100% - 28px) / 8); top: calc(50% - 13px); height: 1px; background: var(--border-strong); }
+    .d-pipe .pulse { position: absolute; top: -3px; left: 0; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: dRun 4s linear infinite; }
+    .d-pipe .node { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .d-pipe .node i {
+      display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--border-strong); border-radius: 50%;
+      background: #0d1014; font-size: 11px; font-style: normal; color: var(--faint); animation: dNode 4s linear infinite; animation-delay: var(--d);
+    }
+    .d-pipe .node b { font-size: 11.5px; font-weight: 400; color: var(--text); }
+
+    @keyframes dA { 0%, 5% { opacity: 0; transform: translateY(5px); } 10%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+    @keyframes dB { 0%, 20% { opacity: 0; transform: translateY(5px); } 25%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+    @keyframes dC { 0%, 38% { opacity: 0; transform: translateY(5px); } 43%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+    @keyframes dD { 0%, 60% { opacity: 0; transform: translateY(5px); } 65%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+    @keyframes dE { 0%, 72% { opacity: 0; } 77%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+    @keyframes dDrawA { 0%, 5% { stroke-dashoffset: 1; opacity: 1; } 32%, 90% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+    @keyframes dDrawB { 0%, 22% { stroke-dashoffset: 1; opacity: 1; } 50%, 90% { stroke-dashoffset: 0; opacity: 1; } 96%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+    @keyframes dFill { 0%, 45% { transform: scaleX(0); opacity: 1; } 72%, 90% { transform: scaleX(1); opacity: 1; } 96%, 100% { transform: scaleX(1); opacity: 0; } }
+    @keyframes dType { 0%, 5% { width: 0; opacity: 1; } 30%, 90% { width: var(--w); opacity: 1; } 96%, 100% { width: var(--w); opacity: 0; } }
+    @keyframes dBlink { 50% { opacity: 0; } }
+    @keyframes dSoft { 50% { opacity: .45; } }
+    @keyframes dPing { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.8); opacity: 0; } }
+    @keyframes dScan { from { transform: translateY(-40px); } to { transform: translateY(170px); } }
+    @keyframes dRun { from { left: 0; } to { left: 100%; } }
+    @keyframes dNode { 0% { border-color: var(--accent); color: var(--accent); } 25%, 100% { border-color: var(--border-strong); color: var(--faint); } }
+
     @media (max-width: 900px) {
       .top { padding: 0 20px; }
       .clocks .city { display: none; }
@@ -150,8 +369,36 @@
       .desks.has-selection .desk:not(.selected) { opacity: 1; }
       .desk:active { border-color: var(--accent-line); }
     }
+
+    @media (max-width: 900px) {
+      .sec { padding: 88px 20px; }
+      .sec h2 { font-size: 32px; }
+      .g-row { grid-template-columns: 1fr 1fr; row-gap: 22px; }
+      .g-name { grid-column: 1 / -1; }
+      .num { padding-left: 0; border-left: 0; }
+      .num b { font-size: 44px; }
+      .hl { grid-template-columns: 1fr; gap: 48px; }
+      .cells, .cells.three { grid-template-columns: minmax(0, 1fr); }
+      .end { min-height: 0; padding: 100px 20px 90px; }
+      .go { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 600px) {
+      .sec { padding: 72px 16px; }
+      .sec h2 { font-size: 28px; }
+      .sec-lede { font-size: 15.5px; }
+      .glance, .cells { margin-top: 40px; }
+      .num b { font-size: 40px; }
+      .hl li { grid-template-columns: minmax(0, 1fr) 112px; gap: 16px; }
+      .thumb { padding: 6px; }
+      .end { padding: 84px 16px 72px; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .desk, .desk::before, .enter span { transition: none; }
+      .rv { opacity: 1; transform: none; transition: none; }
+      .fg-ln { stroke-dashoffset: 0 !important; transition: none !important; }
+      .fg-fade, .fg-pop { opacity: 1 !important; transition: none !important; }
+      .fg-bar, .fg-pop { transform: none !important; transition: none !important; }
+      .demo *, .demo *::after, .fg-ring { animation: none !important; }
     }
   </style>
 </head>
@@ -209,6 +456,102 @@
     <span>For research purposes only. Not investment advice. 仅供研究参考，不构成投资建议。</span>
     <span class="keys">Press U / C to select · Enter to open</span>
   </footer>
+
+  <div class="story">
+    <section class="sec">
+      <div class="wrap">
+        <p class="sec-label rv">02 — At a glance</p>
+        <h2 class="rv" style="--d:.06s">Two desks, one way of working.</h2>
+        <p class="sec-lede rv" style="--d:.12s">Each dashboard breaks its markets down the same way, from framework to signal, and is refreshed every trading day.</p>
+        <div class="glance" id="glance">
+          <div class="g-row c-us rv"><div class="g-name"><span class="dot"></span>Global Markets</div><div class="num"><b><span data-count="800">800</span><i>+</i></b><em>Charts</em></div><div class="num"><b><span data-count="130">130</span><i>+</i></b><em>Entry points</em></div><div class="num"><b><span data-count="20">20</span><i>+</i></b><em>Strategies</em></div><div class="num"><b><span data-count="20">20</span><i>+</i></b><em>Research notes</em></div></div>
+          <div class="g-row c-cn rv" style="--d:.1s" lang="zh-CN"><div class="g-name"><span class="dot"></span>A股综合看板</div><div class="num"><b><span data-count="650">650</span><i>+</i></b><em>张图表</em></div><div class="num"><b><span data-count="90">90</span><i>+</i></b><em>个入口</em></div><div class="num"><b><span data-count="25">25</span><i>+</i></b><em>个策略</em></div><div class="num"><b><span data-count="15">15</span><i>+</i></b><em>篇研究</em></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <p class="sec-label rv">03 — Highlights</p>
+        <h2 class="rv" style="--d:.06s">What each desk does best.</h2>
+        <div class="hl">
+          <div class="hl-col c-us">
+            <div class="hl-head rv"><span>01</span>Global Markets Dashboard</div>
+            <ol>
+              <li class="rv"><div class="hl-text"><b>S&amp;P 500 timing in three layers</b><p>Around 250 charts, from market structure and short-term timing to long-cycle positioning.</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><line class="fg-grid" x1="0" x2="200" y1="51" y2="51"/><path class="fg-fade fg-dash s-down" style="--fd:0.40s" d="M0,70.5L200,70.5"/><path class="fg-ln s-mut thin" pathLength="1" style="--fd:0.20s" d="M0,68.3L1.6,68L3.1,67.5L4.7,67.5L6.2,67.8L7.8,68.1L9.3,68L10.9,67.9L12.4,67.1L14,66.1L15.5,65.5L17.1,65.3L18.6,65.3L20.2,65.9L21.7,67.2L23.3,68.5L24.8,69.7L26.4,70.3L27.9,70.8L29.5,70.1L31,69.8L32.6,68.7L34.1,68.5L35.7,68.5L37.2,68.9L38.8,69.5L40.3,70L41.9,70.3L43.4,70.9L45,70.5L46.5,70.2L48.1,69.6L49.6,69.1L51.2,68.7L52.7,69L54.3,69.3L55.8,69.9L57.4,70.9L58.9,71.2L60.5,70.4L62,68.8L63.6,66.9L65.1,64.6L66.7,61.9L68.2,60.1L69.8,59.1L71.3,59L72.9,59.3L74.4,60.5L76,62L77.5,63.7L79.1,65L80.6,66.1L82.2,66.8L83.7,66.6L85.3,67L86.8,67.6L88.4,68.1L89.9,69.2L91.5,70.4L93,70.9L94.6,70.8L96.1,70.5L97.7,69.5L99.2,68.4L100.8,67L102.3,66.4L103.9,65.8L105.4,65.5L107,65.4L108.5,65.5L110.1,65.7L111.6,66L113.2,65.5L114.7,64.8L116.3,64.4L117.8,63.9L119.4,64.5L120.9,65.2L122.5,66.8L124,68.5L125.6,70.6L127.1,72.3L128.7,73.4L130.2,74L131.8,73.5L133.3,72.5L134.9,70.7L136.4,68.6L138,66.9L139.5,65.6L141.1,64.9L142.6,64.8L144.2,64.9L145.7,64.3L147.3,63.7L148.8,63.3L150.4,63.4L151.9,63.1L153.5,63L155,63.2L156.6,63.5L158.1,64.8L159.7,65.4L161.2,66.3L162.8,66.6L164.3,66.5L165.9,65.7L167.4,65.2L169,63.8L170.5,63.1L172.1,62.7L173.6,63.2L175.2,63.8L176.7,64.9L178.3,65.3L179.8,65.5L181.4,65.5L182.9,65.2L184.5,64.3L186,63.9L187.6,63.5L189.1,63.4L190.7,64.1L192.2,65.6L193.8,66.8L195.3,67.9L196.9,68.6L198.4,69.4L200,69.3"/><path class="fg-ln s-acc" pathLength="1" d="M0,39.1L1.6,38.6L3.1,37.7L4.7,37.5L6.2,37.6L7.8,37.8L9.3,37.8L10.9,37.6L12.4,36.8L14,35.6L15.5,34.8L17.1,34.4L18.6,33.9L20.2,34.1L21.7,35.1L23.3,36.1L24.8,37.2L26.4,37.8L27.9,38.2L29.5,37.6L31,37.4L32.6,36.5L34.1,36.4L35.7,36.6L37.2,37.3L38.8,38.1L40.3,38.9L41.9,39.4L43.4,40.3L45,40.1L46.5,39.9L48.1,39.6L49.6,39.3L51.2,39.1L52.7,39.7L54.3,40.3L55.8,41.1L57.4,42.4L58.9,43L60.5,42.6L62,41.2L63.6,39.4L65.1,37.1L66.7,34.1L68.2,31.8L69.8,30.1L71.3,29.2L72.9,28.5L74.4,28.5L76,28.7L77.5,29.2L79.1,29.3L80.6,29.3L82.2,29.1L83.7,28.1L85.3,27.9L86.8,28.3L88.4,28.6L89.9,29.6L91.5,30.9L93,31.6L94.6,31.7L96.1,31.7L97.7,31L99.2,30L100.8,28.6L102.3,28.1L103.9,27.5L105.4,27.2L107,26.9L108.5,26.8L110.1,26.6L111.6,26.4L113.2,25.5L114.7,24.2L116.3,23.2L117.8,22.1L119.4,22.1L120.9,22.3L122.5,23.4L124,24.7L125.6,26.6L127.1,28.3L128.7,29.5L130.2,30.4L131.8,30.4L133.3,29.9L134.9,28.8L136.4,27.3L138,26L139.5,25.1L141.1,24.6L142.6,24.5L144.2,24.4L145.7,23.4L147.3,22.2L148.8,21.1L150.4,20.3L151.9,19.1L153.5,18.2L155,17.6L156.6,17.1L158.1,17.6L159.7,17.7L161.2,17.9L162.8,17.6L164.3,16.9L165.9,15.7L167.4,14.7L169,12.8L170.5,11.5L172.1,10.6L173.6,10.4L175.2,10.4L176.7,10.8L178.3,10.6L179.8,10.1L181.4,9.4L182.9,8.4L184.5,6.9L186,5.8L187.6,4.8L189.1,4L190.7,4.2L192.2,5L193.8,5.8L195.3,6.4L196.9,6.7L198.4,7.2L200,7"/><line class="fg-fade fg-guide" x1="29.5" x2="29.5" y1="49.6" y2="70.1" style="--fd:1.20s"/><path class="fg-pop f-up" style="--fd:1.20s" d="M29.5,43.6l-5,8h10z"/><line class="fg-fade fg-guide" x1="60.5" x2="60.5" y1="54.6" y2="70.4" style="--fd:1.35s"/><path class="fg-pop f-up" style="--fd:1.35s" d="M60.5,48.6l-5,8h10z"/><line class="fg-fade fg-guide" x1="96.1" x2="96.1" y1="43.7" y2="70.5" style="--fd:1.50s"/><path class="fg-pop f-up" style="--fd:1.50s" d="M96.1,37.7l-5,8h10z"/><line class="fg-fade fg-guide" x1="136.4" x2="136.4" y1="39.3" y2="68.6" style="--fd:1.65s"/><path class="fg-pop f-up" style="--fd:1.65s" d="M136.4,33.3l-5,8h10z"/></svg></span></li>
+              <li class="rv" style="--d:.06s"><div class="hl-text"><b>Policy &amp; dollar liquidity</b><p>Fed and Treasury documents summarized by AI, and a liquidity model with six regimes.</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><rect class="fg-fade f-acc" x="0" y="4" width="30.2" height="70" fill-opacity="0.1"/><rect class="fg-fade f-mut" x="30.2" y="4" width="27.3" height="70" fill-opacity="0.05" style="--fd:0.10s"/><line class="fg-fade fg-guide" x1="30.2" x2="30.2" y1="4" y2="74"/><rect class="fg-fade f-down" x="57.6" y="4" width="31.7" height="70" fill-opacity="0.12" style="--fd:0.20s"/><line class="fg-fade fg-guide" x1="57.6" x2="57.6" y1="4" y2="74"/><rect class="fg-fade f-mut" x="89.2" y="4" width="24.5" height="70" fill-opacity="0.05" style="--fd:0.30s"/><line class="fg-fade fg-guide" x1="89.2" x2="89.2" y1="4" y2="74"/><rect class="fg-fade f-acc" x="113.7" y="4" width="34.5" height="70" fill-opacity="0.07" style="--fd:0.40s"/><line class="fg-fade fg-guide" x1="113.7" x2="113.7" y1="4" y2="74"/><rect class="fg-fade f-up" x="148.2" y="4" width="25.9" height="70" fill-opacity="0.09" style="--fd:0.50s"/><line class="fg-fade fg-guide" x1="148.2" x2="148.2" y1="4" y2="74"/><rect class="fg-fade f-acc" x="174.1" y="4" width="25.9" height="70" fill-opacity="0.1" style="--fd:0.60s"/><line class="fg-fade fg-guide" x1="174.1" x2="174.1" y1="4" y2="74"/><path class="fg-ln s-acc" pathLength="1" style="--fd:0.30s" d="M0,29.7L1.4,24.4L2.9,19.4L4.3,15.3L5.8,11.6L7.2,10.2L8.6,11.3L10.1,12.2L11.5,13.6L12.9,16L14.4,18.2L15.8,19L17.3,20.4L18.7,20.2L20.1,19L21.6,18.7L23,17.7L24.5,16.3L25.9,14.7L27.3,13.8L28.8,13.1L30.2,15L31.7,16.8L33.1,19.8L34.5,24.3L36,28.2L37.4,32.6L38.8,36.9L40.3,42L41.7,45.3L43.2,48.7L44.6,51.6L46,51.3L47.5,49.6L48.9,49.4L50.4,49.6L51.8,48.3L53.2,48.8L54.7,49.6L56.1,51.2L57.6,52.9L59,57.5L60.4,60.3L61.9,63.2L63.3,67L64.7,71.2L66.2,74L67.6,73.2L69.1,72.2L70.5,69.8L71.9,67.2L73.4,63.4L74.8,58.6L76.3,55.9L77.7,52.2L79.1,51.1L80.6,49.7L82,48.6L83.5,47.3L84.9,48.1L86.3,48.9L87.8,49.7L89.2,50.9L90.6,49L92.1,46.9L93.5,42.7L95,38.9L96.4,33.6L97.8,28.6L99.3,22.2L100.7,18.3L102.2,15.4L103.6,12L105,10L106.5,10.7L107.9,11.7L109.4,13.4L110.8,13.9L112.2,14.5L113.7,15.5L115.1,16.5L116.5,15.1L118,13.8L119.4,12.2L120.9,10.4L122.3,7.8L123.7,7L125.2,4.2L126.6,4L128.1,4.7L129.5,7.6L130.9,11.8L132.4,15.1L133.8,19.7L135.3,24.7L136.7,30.9L138.1,35.1L139.6,38.4L141,39.8L142.4,40L143.9,40.2L145.3,39.7L146.8,38.8L148.2,38.1L149.6,38.9L151.1,38.8L152.5,39.5L154,40.1L155.4,42.6L156.8,47.5L158.3,52.9L159.7,56.7L161.2,59.2L162.6,62.7L164,63.4L165.5,64.5L166.9,63.1L168.3,60.8L169.8,59.3L171.2,56.5L172.7,52.3L174.1,48.9L175.5,45.5L177,44.2L178.4,42.4L179.9,42.6L181.3,44.3L182.7,45L184.2,46.3L185.6,47.8L187.1,46.8L188.5,44.4L189.9,41.4L191.4,39.5L192.8,35.3L194.2,29.1L195.7,23.3L197.1,17.2L198.6,11.7L200,9"/></svg></span></li>
+              <li class="rv" style="--d:.12s"><div class="hl-text"><b>Cross-asset desks</b><p>Treasuries, the dollar, gold, crude oil and Bitcoin, with CFTC positioning on prices.</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><path class="fg-ln s-mut thin o0" pathLength="1" d="M0,22.1L1.7,23L3.4,23.4L5,24.3L6.7,24.2L8.4,24.5L10.1,24.8L11.8,25.5L13.4,26L15.1,26.1L16.8,26.7L18.5,27.4L20.2,27.2L21.8,27.3L23.5,26.9L25.2,26.3L26.9,26.5L28.6,26.1L30.3,26.3L31.9,25.9L33.6,25.6L35.3,24.9L37,24.6L38.7,25L40.3,24.1L42,24.1L43.7,23.1L45.4,22.3L47.1,22.1L48.7,21.4L50.4,21.5L52.1,21.4L53.8,20.7L55.5,21.1L57.1,21.5L58.8,21.2L60.5,20.4L62.2,20.1L63.9,19.6L65.5,19.1L67.2,18.8L68.9,18.6L70.6,19.2L72.3,19.4L73.9,19.3L75.6,18.9L77.3,19.2L79,19.4L80.7,19.5L82.4,19.6L84,19.5L85.7,19.2L87.4,19.2L89.1,19.7L90.8,19.7L92.4,19.7L94.1,20.1L95.8,19.7L97.5,19.4L99.2,19.4L100.8,19.4L102.5,19L104.2,18.8L105.9,19.6L107.6,20.4L109.2,20.5L110.9,20L112.6,20.3L114.3,20.3L116,20.5L117.6,20.5L119.3,20.3L121,20.1L122.7,20.1L124.4,19.5L126.1,19.7L127.7,18.8L129.4,18.3L131.1,17.6L132.8,16.9L134.5,17.2L136.1,16.9L137.8,17.1L139.5,16.4L141.2,15.7L142.9,15.1L144.5,14.1L146.2,13L147.9,12.1L149.6,11.6L151.3,10.8L152.9,10L154.6,9.3L156.3,9.4L158,9.1L159.7,8.4L161.3,8.5L163,8.4L164.7,8.9L166.4,8.8L168.1,8.8L169.7,9.3L171.4,9L173.1,9.8L174.8,9.5L176.5,10.4L178.2,10.7L179.8,10.5L181.5,11.4L183.2,11.5L184.9,12.4L186.6,13L188.2,12.5L189.9,12.8L191.6,13.5L193.3,14.4L195,15.1L196.6,15.1L198.3,15.1L200,14.7"/><path class="fg-ln s-mut thin o1" pathLength="1" style="--fd:0.12s" d="M0,22.1L1.7,21.7L3.4,21.9L5,21.7L6.7,22L8.4,21.8L10.1,21.4L11.8,21.3L13.4,20.7L15.1,20.8L16.8,20.3L18.5,19.8L20.2,19.5L21.8,19.8L23.5,19.6L25.2,19.6L26.9,19L28.6,19.1L30.3,18.6L31.9,18.2L33.6,18.3L35.3,18.7L37,18.3L38.7,18.5L40.3,18.7L42,19.1L43.7,19.1L45.4,18.6L47.1,18.9L48.7,19.4L50.4,19.1L52.1,19.4L53.8,19.6L55.5,19.2L57.1,19.6L58.8,19.9L60.5,20.4L62.2,20.2L63.9,20.2L65.5,20L67.2,20.2L68.9,20.1L70.6,20.2L72.3,20.9L73.9,21L75.6,21.1L77.3,21.6L79,21.5L80.7,21.6L82.4,22.3L84,22L85.7,22.4L87.4,22.7L89.1,22.4L90.8,22.8L92.4,23.2L94.1,22.9L95.8,23.2L97.5,22.7L99.2,23.2L100.8,23.3L102.5,23L104.2,23.1L105.9,22.8L107.6,23.2L109.2,23.5L110.9,23.1L112.6,22.9L114.3,23L116,22.3L117.6,22.6L119.3,22.2L121,21.5L122.7,21.5L124.4,21.3L126.1,20.7L127.7,20.1L129.4,19.9L131.1,19.2L132.8,18.8L134.5,18.7L136.1,18.9L137.8,19.1L139.5,18.9L141.2,19.3L142.9,19.5L144.5,19.2L146.2,19.6L147.9,20L149.6,20.3L151.3,20L152.9,20L154.6,20.2L156.3,20.7L158,21.1L159.7,20.8L161.3,21.2L163,21.2L164.7,21.1L166.4,21.8L168.1,21.7L169.7,21.5L171.4,21.6L173.1,22.3L174.8,22.7L176.5,23L178.2,23.8L179.8,24.1L181.5,23.8L183.2,24.2L184.9,24.1L186.6,24.8L188.2,24.6L189.9,25.1L191.6,25.2L193.3,25L195,25.4L196.6,25.3L198.3,25.7L200,25.9"/><path class="fg-ln s-mut thin o2" pathLength="1" style="--fd:0.24s" d="M0,22.1L1.7,22.1L3.4,22.7L5,23.4L6.7,24.2L8.4,25L10.1,25.7L11.8,25.8L13.4,25.5L15.1,24.5L16.8,24.1L18.5,23.4L20.2,23.8L21.8,24.4L23.5,24.2L25.2,24.5L26.9,24.4L28.6,24.1L30.3,25L31.9,24.8L33.6,25L35.3,24.8L37,25.3L38.7,26.3L40.3,26L42,26.4L43.7,27.5L45.4,28.1L47.1,29.4L48.7,30.6L50.4,31.3L52.1,30.7L53.8,31.3L55.5,31.1L57.1,32L58.8,32.7L60.5,33.4L62.2,33.3L63.9,34.7L65.5,34.9L67.2,36.1L68.9,37.1L70.6,37.6L72.3,38.7L73.9,39.7L75.6,40.4L77.3,39.8L79,40.8L80.7,41.7L82.4,41.4L84,42.3L85.7,43.3L87.4,43.9L89.1,43.2L90.8,42.2L92.4,41.7L94.1,42.5L95.8,42.8L97.5,43.8L99.2,43.2L100.8,43.9L102.5,44.3L104.2,45L105.9,44.5L107.6,43.6L109.2,42.4L110.9,42.5L112.6,42.5L114.3,41.9L116,40.8L117.6,40.2L119.3,39.5L121,38.7L122.7,37.5L124.4,37.2L126.1,36.3L127.7,35.9L129.4,34.8L131.1,35L132.8,34.3L134.5,34.7L136.1,34.7L137.8,34.2L139.5,34.1L141.2,34.6L142.9,35.2L144.5,34.4L146.2,34.9L147.9,33.8L149.6,32.9L151.3,33L152.9,31.9L154.6,30.9L156.3,31.5L158,31.7L159.7,32.4L161.3,32.3L163,32.6L164.7,32.8L166.4,33.5L168.1,33.2L169.7,32.7L171.4,33.1L173.1,32.5L174.8,31.6L176.5,31.6L178.2,32.7L179.8,33.7L181.5,33.9L183.2,34.8L184.9,34.2L186.6,34.3L188.2,33.8L189.9,33.5L191.6,33L193.3,32.5L195,33.8L196.6,33.3L198.3,33L200,34.3"/><path class="fg-ln s-mut thin o3" pathLength="1" style="--fd:0.36s" d="M0,22.1L1.7,23L3.4,22.9L5,23.9L6.7,25.1L8.4,24.2L10.1,24.7L11.8,24.4L13.4,25L15.1,24.2L16.8,22.9L18.5,23.3L20.2,23.8L21.8,24.5L23.5,23.7L25.2,22.6L26.9,22.8L28.6,22.5L30.3,21.4L31.9,20.4L33.6,19.8L35.3,18.9L37,18.2L38.7,18L40.3,18.9L42,19.8L43.7,18L45.4,18.1L47.1,17.8L48.7,16.8L50.4,15.9L52.1,16.9L53.8,17.2L55.5,15.7L57.1,16.5L58.8,14.5L60.5,14.6L62.2,15.4L63.9,14.2L65.5,14.8L67.2,14.7L68.9,13.5L70.6,14.5L72.3,13.3L73.9,13.7L75.6,12.4L77.3,10.8L79,10.9L80.7,11.7L82.4,12.4L84,11.2L85.7,10.8L87.4,10.1L89.1,11.2L90.8,11.2L92.4,9.7L94.1,9.4L95.8,8.4L97.5,9.7L99.2,8.9L100.8,7.5L102.5,8.4L104.2,9.9L105.9,9.4L107.6,10.7L109.2,11.4L110.9,10.8L112.6,10.5L114.3,10.6L116,10.3L117.6,9.5L119.3,9L121,9.5L122.7,11.2L124.4,11L126.1,11.3L127.7,11.2L129.4,13L131.1,11.8L132.8,13.6L134.5,13.7L136.1,15.3L137.8,16.1L139.5,16.5L141.2,16.5L142.9,17.9L144.5,18.2L146.2,17.5L147.9,19.3L149.6,18.6L151.3,17.3L152.9,17.8L154.6,16.6L156.3,17.3L158,18L159.7,17.9L161.3,18.5L163,19.7L164.7,19.4L166.4,18.4L168.1,18.7L169.7,18.4L171.4,18.1L173.1,17.5L174.8,18.1L176.5,16.5L178.2,16.5L179.8,14.8L181.5,14.2L183.2,13.7L184.9,12.9L186.6,13.2L188.2,11.8L189.9,11.7L191.6,11.6L193.3,11.5L195,12.3L196.6,13L198.3,13L200,11.9"/><path class="fg-ln s-acc" pathLength="1" style="--fd:0.48s" d="M0,22.1L1.7,21.6L3.4,22.5L5,22.1L6.7,22L8.4,21.9L10.1,22.5L11.8,22L13.4,22.9L15.1,22.9L16.8,22.7L18.5,22.8L20.2,23.3L21.8,22.7L23.5,23.3L25.2,23L26.9,22.8L28.6,23.2L30.3,23.1L31.9,22.5L33.6,21.8L35.3,21.9L37,21.2L38.7,21.7L40.3,21.3L42,21.4L43.7,22.1L45.4,21.2L47.1,21.6L48.7,21.3L50.4,21.1L52.1,21.5L53.8,20.7L55.5,20L57.1,20.2L58.8,20.6L60.5,20.3L62.2,20.3L63.9,19.6L65.5,19.6L67.2,19.1L68.9,17.9L70.6,17.4L72.3,17.6L73.9,17.2L75.6,17.1L77.3,16.7L79,15.8L80.7,15.3L82.4,14.8L84,14.4L85.7,13.9L87.4,13.6L89.1,13.9L90.8,12.9L92.4,12.6L94.1,12.1L95.8,11.9L97.5,11.5L99.2,10.6L100.8,9.8L102.5,10.6L104.2,10.2L105.9,10.9L107.6,10.6L109.2,10.5L110.9,9.7L112.6,9.4L114.3,8.8L116,8.4L117.6,9.1L119.3,8.9L121,8.3L122.7,9.2L124.4,8.6L126.1,8.5L127.7,8.2L129.4,8.7L131.1,8.5L132.8,9L134.5,8.9L136.1,8.5L137.8,9.4L139.5,9.5L141.2,9.6L142.9,10.1L144.5,10.1L146.2,10.7L147.9,10.8L149.6,11.4L151.3,10.9L152.9,10.6L154.6,10.5L156.3,9.7L158,9L159.7,9.8L161.3,10.2L163,9.9L164.7,9.4L166.4,9.8L168.1,10L169.7,9.1L171.4,8.6L173.1,9.2L174.8,9L176.5,9.4L178.2,9.6L179.8,10L181.5,10.2L183.2,10.4L184.9,10.4L186.6,9.4L188.2,9.7L189.9,8.6L191.6,7.9L193.3,6.9L195,6.8L196.6,5.6L198.3,5.2L200,4"/><rect class="fg-bar neg f-down" x="1" y="68.5" width="2.5" height="0.2" fill-opacity="0.75" style="--fd:0.60s"/><rect class="fg-bar f-up" x="6" y="67.3" width="2.5" height="1.2" fill-opacity="0.75" style="--fd:0.61s"/><rect class="fg-bar f-up" x="11" y="66.7" width="2.5" height="1.8" fill-opacity="0.75" style="--fd:0.63s"/><rect class="fg-bar f-up" x="16" y="66.4" width="2.5" height="2.1" fill-opacity="0.75" style="--fd:0.65s"/><rect class="fg-bar f-up" x="21" y="66.5" width="2.5" height="2" fill-opacity="0.75" style="--fd:0.66s"/><rect class="fg-bar f-up" x="26" y="65.9" width="2.5" height="2.6" fill-opacity="0.75" style="--fd:0.67s"/><rect class="fg-bar f-up" x="31" y="66" width="2.5" height="2.5" fill-opacity="0.75" style="--fd:0.69s"/><rect class="fg-bar f-up" x="36" y="68.1" width="2.5" height="0.4" fill-opacity="0.75" style="--fd:0.70s"/><rect class="fg-bar neg f-down" x="41" y="68.5" width="2.5" height="1.4" fill-opacity="0.75" style="--fd:0.72s"/><rect class="fg-bar neg f-down" x="46" y="68.5" width="2.5" height="1.7" fill-opacity="0.75" style="--fd:0.73s"/><rect class="fg-bar neg f-down" x="51" y="68.5" width="2.5" height="3.5" fill-opacity="0.75" style="--fd:0.75s"/><rect class="fg-bar neg f-down" x="56" y="68.5" width="2.5" height="4" fill-opacity="0.75" style="--fd:0.76s"/><rect class="fg-bar neg f-down" x="61" y="68.5" width="2.5" height="2.9" fill-opacity="0.75" style="--fd:0.78s"/><rect class="fg-bar neg f-down" x="66" y="68.5" width="2.5" height="2.2" fill-opacity="0.75" style="--fd:0.79s"/><rect class="fg-bar neg f-down" x="71" y="68.5" width="2.5" height="1.9" fill-opacity="0.75" style="--fd:0.81s"/><rect class="fg-bar f-up" x="76" y="67.4" width="2.5" height="1.1" fill-opacity="0.75" style="--fd:0.82s"/><rect class="fg-bar f-up" x="81" y="67.1" width="2.5" height="1.4" fill-opacity="0.75" style="--fd:0.84s"/><rect class="fg-bar f-up" x="86" y="66.2" width="2.5" height="2.3" fill-opacity="0.75" style="--fd:0.85s"/><rect class="fg-bar f-up" x="91" y="65.2" width="2.5" height="3.3" fill-opacity="0.75" style="--fd:0.87s"/><rect class="fg-bar f-up" x="96" y="67.3" width="2.5" height="1.2" fill-opacity="0.75" style="--fd:0.89s"/><rect class="fg-bar neg f-down" x="101" y="68.5" width="2.5" height="0.2" fill-opacity="0.75" style="--fd:0.90s"/><rect class="fg-bar neg f-down" x="106" y="68.5" width="2.5" height="2.6" fill-opacity="0.75" style="--fd:0.92s"/><rect class="fg-bar neg f-down" x="111" y="68.5" width="2.5" height="4.1" fill-opacity="0.75" style="--fd:0.93s"/><rect class="fg-bar neg f-down" x="116" y="68.5" width="2.5" height="5.5" fill-opacity="0.75" style="--fd:0.94s"/><rect class="fg-bar neg f-down" x="121" y="68.5" width="2.5" height="7.5" fill-opacity="0.75" style="--fd:0.96s"/><rect class="fg-bar neg f-down" x="126" y="68.5" width="2.5" height="6.9" fill-opacity="0.75" style="--fd:0.97s"/><rect class="fg-bar neg f-down" x="131" y="68.5" width="2.5" height="5.2" fill-opacity="0.75" style="--fd:0.99s"/><rect class="fg-bar neg f-down" x="136" y="68.5" width="2.5" height="2.6" fill-opacity="0.75" style="--fd:1.00s"/><rect class="fg-bar neg f-down" x="141" y="68.5" width="2.5" height="0.6" fill-opacity="0.75" style="--fd:1.02s"/><rect class="fg-bar f-up" x="146" y="67.2" width="2.5" height="1.3" fill-opacity="0.75" style="--fd:1.03s"/><rect class="fg-bar f-up" x="151" y="66.9" width="2.5" height="1.6" fill-opacity="0.75" style="--fd:1.05s"/><rect class="fg-bar f-up" x="156" y="66.8" width="2.5" height="1.7" fill-opacity="0.75" style="--fd:1.06s"/><rect class="fg-bar f-up" x="161" y="67.2" width="2.5" height="1.3" fill-opacity="0.75" style="--fd:1.08s"/><rect class="fg-bar f-up" x="166" y="68.5" width="2.5" height="0" fill-opacity="0.75" style="--fd:1.09s"/><rect class="fg-bar neg f-down" x="171" y="68.5" width="2.5" height="0.8" fill-opacity="0.75" style="--fd:1.11s"/><rect class="fg-bar neg f-down" x="176" y="68.5" width="2.5" height="2.7" fill-opacity="0.75" style="--fd:1.13s"/><rect class="fg-bar neg f-down" x="181" y="68.5" width="2.5" height="4.6" fill-opacity="0.75" style="--fd:1.14s"/><rect class="fg-bar neg f-down" x="186" y="68.5" width="2.5" height="4.5" fill-opacity="0.75" style="--fd:1.15s"/><rect class="fg-bar neg f-down" x="191" y="68.5" width="2.5" height="4.9" fill-opacity="0.75" style="--fd:1.17s"/><rect class="fg-bar neg f-down" x="196" y="68.5" width="2.5" height="4.1" fill-opacity="0.75" style="--fd:1.19s"/></svg></span></li>
+              <li class="rv" style="--d:.18s"><div class="hl-text"><b>AI build-out study</b><p>Bubble scorecard, capex and a profit funnel, tracked against company filings.</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><rect class="fg-bar f-acc" x="4" y="71.7" width="4.5" height="1.3" fill-opacity="0.95" style="--fd:0.00s"/><rect class="fg-bar f-acc" x="4" y="69.8" width="4.5" height="0.9" fill-opacity="0.66" style="--fd:0.05s"/><rect class="fg-bar f-acc" x="4" y="68.3" width="4.5" height="0.5" fill-opacity="0.42" style="--fd:0.10s"/><rect class="fg-bar f-acc" x="4" y="67.1" width="4.5" height="0.2" fill-opacity="0.24" style="--fd:0.15s"/><rect class="fg-bar f-acc" x="16.5" y="71.4" width="4.5" height="1.6" fill-opacity="0.95" style="--fd:0.04s"/><rect class="fg-bar f-acc" x="16.5" y="69.3" width="4.5" height="1.1" fill-opacity="0.66" style="--fd:0.09s"/><rect class="fg-bar f-acc" x="16.5" y="67.6" width="4.5" height="0.7" fill-opacity="0.42" style="--fd:0.14s"/><rect class="fg-bar f-acc" x="16.5" y="66.3" width="4.5" height="0.3" fill-opacity="0.24" style="--fd:0.19s"/><rect class="fg-bar f-acc" x="29" y="70.9" width="4.5" height="2.1" fill-opacity="0.95" style="--fd:0.08s"/><rect class="fg-bar f-acc" x="29" y="68.4" width="4.5" height="1.5" fill-opacity="0.66" style="--fd:0.13s"/><rect class="fg-bar f-acc" x="29" y="66.4" width="4.5" height="1" fill-opacity="0.42" style="--fd:0.18s"/><rect class="fg-bar f-acc" x="29" y="64.8" width="4.5" height="0.6" fill-opacity="0.24" style="--fd:0.23s"/><rect class="fg-bar f-acc" x="41.5" y="70.4" width="4.5" height="2.6" fill-opacity="0.95" style="--fd:0.12s"/><rect class="fg-bar f-acc" x="41.5" y="67.5" width="4.5" height="1.9" fill-opacity="0.66" style="--fd:0.17s"/><rect class="fg-bar f-acc" x="41.5" y="65.2" width="4.5" height="1.3" fill-opacity="0.42" style="--fd:0.22s"/><rect class="fg-bar f-acc" x="41.5" y="63.4" width="4.5" height="0.8" fill-opacity="0.24" style="--fd:0.27s"/><rect class="fg-bar f-acc" x="54" y="69.6" width="4.5" height="3.4" fill-opacity="0.95" style="--fd:0.16s"/><rect class="fg-bar f-acc" x="54" y="66.1" width="4.5" height="2.5" fill-opacity="0.66" style="--fd:0.21s"/><rect class="fg-bar f-acc" x="54" y="63.3" width="4.5" height="1.8" fill-opacity="0.42" style="--fd:0.26s"/><rect class="fg-bar f-acc" x="54" y="61.1" width="4.5" height="1.2" fill-opacity="0.24" style="--fd:0.31s"/><rect class="fg-bar f-acc" x="66.5" y="69.1" width="4.5" height="3.9" fill-opacity="0.95" style="--fd:0.20s"/><rect class="fg-bar f-acc" x="66.5" y="65.2" width="4.5" height="2.9" fill-opacity="0.66" style="--fd:0.25s"/><rect class="fg-bar f-acc" x="66.5" y="62" width="4.5" height="2.2" fill-opacity="0.42" style="--fd:0.30s"/><rect class="fg-bar f-acc" x="66.5" y="59.5" width="4.5" height="1.5" fill-opacity="0.24" style="--fd:0.35s"/><rect class="fg-bar f-acc" x="79" y="67.9" width="4.5" height="5.1" fill-opacity="0.95" style="--fd:0.24s"/><rect class="fg-bar f-acc" x="79" y="63.1" width="4.5" height="3.8" fill-opacity="0.66" style="--fd:0.29s"/><rect class="fg-bar f-acc" x="79" y="59.2" width="4.5" height="2.9" fill-opacity="0.42" style="--fd:0.34s"/><rect class="fg-bar f-acc" x="79" y="56.2" width="4.5" height="2" fill-opacity="0.24" style="--fd:0.39s"/><rect class="fg-bar f-acc" x="91.5" y="67.3" width="4.5" height="5.7" fill-opacity="0.95" style="--fd:0.28s"/><rect class="fg-bar f-acc" x="91.5" y="62" width="4.5" height="4.3" fill-opacity="0.66" style="--fd:0.33s"/><rect class="fg-bar f-acc" x="91.5" y="57.6" width="4.5" height="3.3" fill-opacity="0.42" style="--fd:0.38s"/><rect class="fg-bar f-acc" x="91.5" y="54.3" width="4.5" height="2.4" fill-opacity="0.24" style="--fd:0.43s"/><rect class="fg-bar f-acc" x="104" y="66.5" width="4.5" height="6.5" fill-opacity="0.95" style="--fd:0.32s"/><rect class="fg-bar f-acc" x="104" y="60.6" width="4.5" height="4.9" fill-opacity="0.66" style="--fd:0.37s"/><rect class="fg-bar f-acc" x="104" y="55.7" width="4.5" height="3.8" fill-opacity="0.42" style="--fd:0.42s"/><rect class="fg-bar f-acc" x="104" y="52" width="4.5" height="2.7" fill-opacity="0.24" style="--fd:0.47s"/><rect class="fg-bar f-acc" x="116.5" y="64.5" width="4.5" height="8.5" fill-opacity="0.95" style="--fd:0.36s"/><rect class="fg-bar f-acc" x="116.5" y="57" width="4.5" height="6.5" fill-opacity="0.66" style="--fd:0.41s"/><rect class="fg-bar f-acc" x="116.5" y="50.9" width="4.5" height="5.1" fill-opacity="0.42" style="--fd:0.46s"/><rect class="fg-bar f-acc" x="116.5" y="46.1" width="4.5" height="3.7" fill-opacity="0.24" style="--fd:0.51s"/><rect class="fg-bar f-acc" x="129" y="62.8" width="4.5" height="10.2" fill-opacity="0.95" style="--fd:0.40s"/><rect class="fg-bar f-acc" x="129" y="53.8" width="4.5" height="7.9" fill-opacity="0.66" style="--fd:0.45s"/><rect class="fg-bar f-acc" x="129" y="46.6" width="4.5" height="6.3" fill-opacity="0.42" style="--fd:0.50s"/><rect class="fg-bar f-acc" x="129" y="40.9" width="4.5" height="4.6" fill-opacity="0.24" style="--fd:0.55s"/><rect class="fg-bar f-acc" x="141.5" y="61.6" width="4.5" height="11.4" fill-opacity="0.95" style="--fd:0.44s"/><rect class="fg-bar f-acc" x="141.5" y="51.8" width="4.5" height="8.8" fill-opacity="0.66" style="--fd:0.49s"/><rect class="fg-bar f-acc" x="141.5" y="43.7" width="4.5" height="7" fill-opacity="0.42" style="--fd:0.54s"/><rect class="fg-bar f-acc" x="141.5" y="37.6" width="4.5" height="5.2" fill-opacity="0.24" style="--fd:0.59s"/><rect class="fg-bar f-acc" x="154" y="59.5" width="4.5" height="13.5" fill-opacity="0.95" style="--fd:0.48s"/><rect class="fg-bar f-acc" x="154" y="48" width="4.5" height="10.5" fill-opacity="0.66" style="--fd:0.53s"/><rect class="fg-bar f-acc" x="154" y="38.6" width="4.5" height="8.4" fill-opacity="0.42" style="--fd:0.58s"/><rect class="fg-bar f-acc" x="154" y="31.3" width="4.5" height="6.3" fill-opacity="0.24" style="--fd:0.63s"/><rect class="fg-bar f-acc" x="166.5" y="55.7" width="4.5" height="17.3" fill-opacity="0.95" style="--fd:0.52s"/><rect class="fg-bar f-acc" x="166.5" y="41.2" width="4.5" height="13.5" fill-opacity="0.66" style="--fd:0.57s"/><rect class="fg-bar f-acc" x="166.5" y="29.4" width="4.5" height="10.8" fill-opacity="0.42" style="--fd:0.62s"/><rect class="fg-bar f-acc" x="166.5" y="20.3" width="4.5" height="8.1" fill-opacity="0.24" style="--fd:0.67s"/><rect class="fg-bar f-acc" x="179" y="54" width="4.5" height="19" fill-opacity="0.95" style="--fd:0.56s"/><rect class="fg-bar f-acc" x="179" y="38.1" width="4.5" height="14.9" fill-opacity="0.66" style="--fd:0.61s"/><rect class="fg-bar f-acc" x="179" y="25.1" width="4.5" height="12" fill-opacity="0.42" style="--fd:0.66s"/><rect class="fg-bar f-acc" x="179" y="15.1" width="4.5" height="9" fill-opacity="0.24" style="--fd:0.71s"/><rect class="fg-bar f-acc" x="191.5" y="51.1" width="4.5" height="21.9" fill-opacity="0.95" style="--fd:0.60s"/><rect class="fg-bar f-acc" x="191.5" y="32.9" width="4.5" height="17.2" fill-opacity="0.66" style="--fd:0.65s"/><rect class="fg-bar f-acc" x="191.5" y="18.1" width="4.5" height="13.8" fill-opacity="0.42" style="--fd:0.70s"/><rect class="fg-bar f-acc" x="191.5" y="6.7" width="4.5" height="10.4" fill-opacity="0.24" style="--fd:0.75s"/><path class="fg-ln s-txt" pathLength="1" style="--fd:0.90s" d="M6.3,71.9L18.8,71.6L31.3,71.3L43.8,70.9L56.3,70.5L68.8,70.1L81.3,69.6L93.8,69L106.3,68.4L118.8,67.6L131.3,66.8L143.8,65.9L156.3,64.8L168.8,63.6L181.3,62.3L193.8,60.8"/><circle class="fg-pop f-txt" cx="6.3" cy="71.9" r="2.4" style="--fd:1.00s"/><circle class="fg-pop f-txt" cx="18.8" cy="71.6" r="2.4" style="--fd:1.05s"/><circle class="fg-pop f-txt" cx="31.3" cy="71.3" r="2.4" style="--fd:1.10s"/><circle class="fg-pop f-txt" cx="43.8" cy="70.9" r="2.4" style="--fd:1.15s"/><circle class="fg-pop f-txt" cx="56.3" cy="70.5" r="2.4" style="--fd:1.20s"/><circle class="fg-pop f-txt" cx="68.8" cy="70.1" r="2.4" style="--fd:1.25s"/><circle class="fg-pop f-txt" cx="81.3" cy="69.6" r="2.4" style="--fd:1.30s"/><circle class="fg-pop f-txt" cx="93.8" cy="69" r="2.4" style="--fd:1.35s"/><circle class="fg-pop f-txt" cx="106.3" cy="68.4" r="2.4" style="--fd:1.40s"/><circle class="fg-pop f-txt" cx="118.8" cy="67.6" r="2.4" style="--fd:1.45s"/><circle class="fg-pop f-txt" cx="131.3" cy="66.8" r="2.4" style="--fd:1.50s"/><circle class="fg-pop f-txt" cx="143.8" cy="65.9" r="2.4" style="--fd:1.55s"/><circle class="fg-pop f-txt" cx="156.3" cy="64.8" r="2.4" style="--fd:1.60s"/><circle class="fg-pop f-txt" cx="168.8" cy="63.6" r="2.4" style="--fd:1.65s"/><circle class="fg-pop f-txt" cx="181.3" cy="62.3" r="2.4" style="--fd:1.70s"/><circle class="fg-pop f-txt" cx="193.8" cy="60.8" r="2.4" style="--fd:1.75s"/></svg></span></li>
+            </ol>
+          </div>
+          <div class="hl-col c-cn" lang="zh-CN">
+            <div class="hl-head rv"><span>02</span>A股综合看板</div>
+            <ol>
+              <li class="rv"><div class="hl-text"><b>牛熊大周期</b><p>大周期择时信号，叠加市场大底、大顶与短期情绪的顶底信号。</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><rect class="fg-fade f-up" x="54.1" y="4" width="61.6" height="68" fill-opacity="0.08"/><rect class="fg-fade f-up" x="163.5" y="4" width="36.5" height="68" fill-opacity="0.08"/><rect class="fg-fade f-down" x="0" y="4" width="52.8" height="68" fill-opacity="0.08"/><rect class="fg-fade f-down" x="117" y="4" width="45.3" height="68" fill-opacity="0.08"/><path class="fg-ln s-acc" pathLength="1" style="--fd:0.30s" d="M0,19.8L1.3,18.1L2.5,16.3L3.8,15.3L5,13.9L6.3,13.4L7.5,13.5L8.8,14.6L10.1,16.1L11.3,17.8L12.6,20.3L13.8,23.3L15.1,25.7L16.4,28.4L17.6,30.6L18.9,32.6L20.1,34.9L21.4,36.4L22.6,38L23.9,38.8L25.2,39.4L26.4,39.3L27.7,39.4L28.9,39.9L30.2,39.5L31.4,39.8L32.7,39.7L34,40.1L35.2,41.2L36.5,42.4L37.7,44.7L39,47.1L40.3,49.4L41.5,52.8L42.8,56.2L44,59.1L45.3,61.4L46.5,63.7L47.8,65.5L49.1,66.6L50.3,67.5L51.6,67.7L52.8,68L54.1,67.4L55.3,66.1L56.6,64.1L57.9,62.3L59.1,60.4L60.4,58.3L61.6,56.4L62.9,54.4L64.2,52.5L65.4,51.3L66.7,50.7L67.9,50.1L69.2,49.8L70.4,49.9L71.7,49.5L73,49.3L74.2,49.1L75.5,48.6L76.7,47.6L78,46.3L79.2,45.4L80.5,44L81.8,41.5L83,38.3L84.3,35.4L85.5,32L86.8,28.8L88.1,25.5L89.3,22.2L90.6,19.2L91.8,16.8L93.1,14.5L94.3,13.3L95.6,11.9L96.9,11.3L98.1,11.1L99.4,11.3L100.6,12.6L101.9,13.7L103.1,15.1L104.4,15.9L105.7,16.4L106.9,16.8L108.2,16.6L109.4,15.9L110.7,15L111.9,14.3L113.2,13L114.5,11.5L115.7,10.2L117,9.5L118.2,8.8L119.5,8L120.8,8.3L122,8.9L123.3,10.5L124.5,12.1L125.8,14.3L127,17.2L128.3,19.8L129.6,23.6L130.8,26.6L132.1,30.4L133.3,33.6L134.6,36L135.8,39L137.1,40.8L138.4,42.7L139.6,44L140.9,44L142.1,44.1L143.4,44.4L144.7,44.6L145.9,44.5L147.2,44L148.4,43.5L149.7,43.1L150.9,43.2L152.2,43.4L153.5,44.8L154.7,46.4L156,48.3L157.2,49.9L158.5,51.4L159.7,52.9L161,54.1L162.3,55.5L163.5,55.6L164.8,56.3L166,55.4L167.3,54.8L168.6,53.4L169.8,51.4L171.1,49L172.3,46.1L173.6,43.3L174.8,39.9L176.1,37.4L177.4,34.5L178.6,31.6L179.9,29.5L181.1,27.7L182.4,26.4L183.6,24.8L184.9,24.6L186.2,24.7L187.4,24.9L188.7,25.3L189.9,24.7L191.2,24.2L192.5,23.3L193.7,22.6L195,21.9L196.2,20.5L197.5,18.8L198.7,17L200,14.9"/><path class="fg-pop f-up" style="--fd:1.50s" d="M52.8,75l-5,8h10z"/><path class="fg-pop f-up" style="--fd:1.70s" d="M164.8,63.3l-5,8h10z"/><path class="fg-pop f-down" style="--fd:1.60s" d="M119.5,1l-5,-8h10z"/></svg></span></li>
+              <li class="rv" style="--d:.06s"><div class="hl-text"><b>资金与估值</b><p>两融、ETF 申赎、公募仓位，配合股权风险溢价与指数估值。</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><line class="fg-base" x1="0" x2="200" y1="41.4" y2="41.4"/><rect class="fg-bar f-up" x="2" y="32.7" width="0.6" height="8.7" fill-opacity="0.7"/><rect class="fg-bar f-up" x="7.6" y="25.1" width="0.6" height="16.3" fill-opacity="0.7" style="--fd:0.03s"/><rect class="fg-bar f-up" x="13.1" y="17.4" width="0.6" height="24" fill-opacity="0.7" style="--fd:0.05s"/><rect class="fg-bar f-up" x="18.7" y="11.1" width="0.6" height="30.3" fill-opacity="0.7" style="--fd:0.08s"/><rect class="fg-bar f-up" x="24.2" y="16.1" width="0.6" height="25.3" fill-opacity="0.7" style="--fd:0.10s"/><rect class="fg-bar f-up" x="29.8" y="26.1" width="0.6" height="15.3" fill-opacity="0.7" style="--fd:0.13s"/><rect class="fg-bar f-up" x="35.3" y="37.2" width="0.6" height="4.2" fill-opacity="0.7" style="--fd:0.15s"/><rect class="fg-bar neg f-down" x="40.9" y="41.4" width="0.6" height="2.5" fill-opacity="0.7" style="--fd:0.18s"/><rect class="fg-bar neg f-down" x="46.4" y="41.4" width="0.6" height="7.2" fill-opacity="0.7" style="--fd:0.20s"/><rect class="fg-bar neg f-down" x="52" y="41.4" width="0.6" height="20.3" fill-opacity="0.7" style="--fd:0.23s"/><rect class="fg-bar neg f-down" x="57.6" y="41.4" width="0.6" height="24.4" fill-opacity="0.7" style="--fd:0.25s"/><rect class="fg-bar neg f-down" x="63.1" y="41.4" width="0.6" height="21.3" fill-opacity="0.7" style="--fd:0.28s"/><rect class="fg-bar neg f-down" x="68.7" y="41.4" width="0.6" height="18.6" fill-opacity="0.7" style="--fd:0.30s"/><rect class="fg-bar neg f-down" x="74.2" y="41.4" width="0.6" height="20.4" fill-opacity="0.7" style="--fd:0.33s"/><rect class="fg-bar neg f-down" x="79.8" y="41.4" width="0.6" height="12.1" fill-opacity="0.7" style="--fd:0.35s"/><rect class="fg-bar neg f-down" x="85.3" y="41.4" width="0.6" height="6.4" fill-opacity="0.7" style="--fd:0.38s"/><rect class="fg-bar f-up" x="90.9" y="33.2" width="0.6" height="8.2" fill-opacity="0.7" style="--fd:0.40s"/><rect class="fg-bar f-up" x="96.4" y="27.7" width="0.6" height="13.7" fill-opacity="0.7" style="--fd:0.43s"/><rect class="fg-bar f-up" x="102" y="15.8" width="0.6" height="25.6" fill-opacity="0.7" style="--fd:0.45s"/><rect class="fg-bar f-up" x="107.6" y="10" width="0.6" height="31.4" fill-opacity="0.7" style="--fd:0.48s"/><rect class="fg-bar f-up" x="113.1" y="16.9" width="0.6" height="24.5" fill-opacity="0.7" style="--fd:0.50s"/><rect class="fg-bar f-up" x="118.7" y="23.5" width="0.6" height="17.9" fill-opacity="0.7" style="--fd:0.53s"/><rect class="fg-bar f-up" x="124.2" y="23.1" width="0.6" height="18.3" fill-opacity="0.7" style="--fd:0.55s"/><rect class="fg-bar f-up" x="129.8" y="32.8" width="0.6" height="8.6" fill-opacity="0.7" style="--fd:0.58s"/><rect class="fg-bar f-up" x="135.3" y="37.3" width="0.6" height="4.1" fill-opacity="0.7" style="--fd:0.60s"/><rect class="fg-bar neg f-down" x="140.9" y="41.4" width="0.6" height="11" fill-opacity="0.7" style="--fd:0.63s"/><rect class="fg-bar neg f-down" x="146.4" y="41.4" width="0.6" height="17.1" fill-opacity="0.7" style="--fd:0.65s"/><rect class="fg-bar neg f-down" x="152" y="41.4" width="0.6" height="27.2" fill-opacity="0.7" style="--fd:0.68s"/><rect class="fg-bar neg f-down" x="157.6" y="41.4" width="0.6" height="22" fill-opacity="0.7" style="--fd:0.70s"/><rect class="fg-bar neg f-down" x="163.1" y="41.4" width="0.6" height="24.7" fill-opacity="0.7" style="--fd:0.73s"/><rect class="fg-bar neg f-down" x="168.7" y="41.4" width="0.6" height="25.1" fill-opacity="0.7" style="--fd:0.75s"/><rect class="fg-bar neg f-down" x="174.2" y="41.4" width="0.6" height="21.9" fill-opacity="0.7" style="--fd:0.78s"/><rect class="fg-bar neg f-down" x="179.8" y="41.4" width="0.6" height="5" fill-opacity="0.7" style="--fd:0.80s"/><rect class="fg-bar neg f-down" x="185.3" y="41.4" width="0.6" height="1.5" fill-opacity="0.7" style="--fd:0.83s"/><rect class="fg-bar f-up" x="190.9" y="39.1" width="0.6" height="2.3" fill-opacity="0.7" style="--fd:0.85s"/><rect class="fg-bar f-up" x="196.4" y="31.3" width="0.6" height="10.1" fill-opacity="0.7" style="--fd:0.88s"/><path class="fg-ln s-txt" pathLength="1" style="--fd:0.80s" d="M0,44.6L5.7,45.8L11.4,45.6L17.1,47.1L22.9,51.7L28.6,54.7L34.3,59.2L40,61.7L45.7,62.5L51.4,64.9L57.1,68L62.9,66.8L68.6,65.4L74.3,65.5L80,65.3L85.7,62.4L91.4,57.7L97.1,52.6L102.9,50.2L108.6,44.7L114.3,36.9L120,33.4L125.7,27L131.4,24L137.1,20.2L142.9,18.2L148.6,16.3L154.3,12L160,10L165.7,11.8L171.4,13.7L177.1,12.7L182.9,14.5L188.6,15.2L194.3,19.1L200,22.5"/></svg></span></li>
+              <li class="rv" style="--d:.12s"><div class="hl-text"><b>港股、政策与人民币</b><p>港股择时、高层会议的 AI 摘要，以及人民币汇率跟踪。</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><rect class="fg-fade f-down" x="109.4" y="2" width="28.8" height="74" fill-opacity="0.1" style="--fd:0.20s"/><line class="fg-grid" x1="0" x2="200" y1="45.4" y2="45.4"/><path class="fg-ln s-acc" pathLength="1" style="--fd:0.10s" d="M0,10.4L1.4,10.4L2.9,10.2L4.3,10.4L5.8,10.5L7.2,10.7L8.6,10.8L10.1,11.1L11.5,11L12.9,10.8L14.4,11.4L15.8,11.4L17.3,11.8L18.7,12.8L20.1,13.8L21.6,14.7L23,15.1L24.5,15.8L25.9,16.9L27.3,17.2L28.8,17.8L30.2,18L31.7,18.7L33.1,19.5L34.5,19.9L36,20.2L37.4,20.6L38.8,20.6L40.3,21.1L41.7,21.3L43.2,20.9L44.6,20.5L46,20.7L47.5,20.2L48.9,19.8L50.4,19.4L51.8,18.5L53.2,18.3L54.7,17.7L56.1,16.8L57.6,16.3L59,15.8L60.4,15.2L61.9,14.6L63.3,13.5L64.7,12.7L66.2,12L67.6,11L69.1,10.7L70.5,9.9L71.9,9.5L73.4,8.7L74.8,8.8L76.3,8.3L77.7,8.6L79.1,8.2L80.6,8.1L82,8L83.5,8L84.9,8.7L86.3,9.1L87.8,9.4L89.2,9.9L90.6,10.4L92.1,11.2L93.5,12.3L95,12.6L96.4,13.8L97.8,15L99.3,16.1L100.7,16.6L102.2,17.5L103.6,18.4L105,19.2L106.5,20L107.9,20.8L109.4,22.1L110.8,23.5L112.2,25.2L113.7,26.9L115.1,28.8L116.5,30.8L118,33.2L119.4,35L120.9,36.9L122.3,37.4L123.7,37.1L125.2,36.4L126.6,34.5L128.1,31.2L129.5,27.8L130.9,24.9L132.4,22L133.8,18.7L135.3,16.2L136.7,14.8L138.1,13.6L139.6,12.9L141,12L142.4,10.9L143.9,10.4L145.3,10L146.8,10.1L148.2,9.7L149.6,9.6L151.1,9.4L152.5,9.3L154,9.8L155.4,10.1L156.8,10.1L158.3,10.4L159.7,11L161.2,11.8L162.6,12.3L164,13.1L165.5,14.1L166.9,14.3L168.3,15.2L169.8,15.4L171.2,15.8L172.7,16.8L174.1,17.1L175.5,17.6L177,18L178.4,19L179.9,19.2L181.3,19.8L182.7,20L184.2,20.1L185.6,20.5L187.1,20.5L188.5,20.4L189.9,19.9L191.4,19.4L192.8,18.9L194.2,18.1L195.7,17.6L197.1,17L198.6,16.3L200,15.7"/><path class="fg-ln s-mut" pathLength="1" style="--fd:0.40s" d="M0,60.6L1.4,61.3L2.9,62.2L4.3,62.5L5.8,63L7.2,63.4L8.6,64.4L10.1,65L11.5,65.7L12.9,66.5L14.4,67.1L15.8,67.7L17.3,68.6L18.7,69.8L20.1,70L21.6,70.3L23,71.1L24.5,72.3L25.9,72.5L27.3,72.5L28.8,72.2L30.2,72.2L31.7,72.5L33.1,73.4L34.5,73.6L36,73.4L37.4,73.8L38.8,73.5L40.3,73.8L41.7,74L43.2,73.5L44.6,72.7L46,72.9L47.5,72.8L48.9,72.1L50.4,71.5L51.8,71.2L53.2,70.3L54.7,69.6L56.1,68.9L57.6,68.5L59,67.5L60.4,66L61.9,65.6L63.3,65.5L64.7,64.1L66.2,63.5L67.6,62.1L69.1,60.9L70.5,59.7L71.9,59.6L73.4,58.4L74.8,58.7L76.3,58.2L77.7,57.8L79.1,58.1L80.6,58.3L82,58.9L83.5,58.9L84.9,58.4L86.3,58.7L87.8,59.2L89.2,59L90.6,60L92.1,60.9L93.5,60.8L95,61.6L96.4,61.9L97.8,62.6L99.3,63.7L100.7,64.2L102.2,65.5L103.6,66.7L105,67.3L106.5,67.8L107.9,67.7L109.4,67L110.8,66.8L112.2,65.5L113.7,64.3L115.1,62.9L116.5,60.7L118,59.2L119.4,57.8L120.9,55.5L122.3,54.1L123.7,53.4L125.2,53.4L126.6,54.2L128.1,55L129.5,56.8L130.9,58.9L132.4,61.1L133.8,63.4L135.3,64.9L136.7,65.4L138.1,66.4L139.6,66.5L141,65.8L142.4,65.7L143.9,65.7L145.3,64.7L146.8,64.7L148.2,64.5L149.6,63.9L151.1,63.3L152.5,62L154,61.9L155.4,60.6L156.8,59.6L158.3,58.8L159.7,58.8L161.2,58.2L162.6,57.8L164,57.3L165.5,57.5L166.9,57.2L168.3,57.9L169.8,58L171.2,57.9L172.7,58.6L174.1,58.6L175.5,59.7L177,59.4L178.4,59.8L179.9,61L181.3,60.9L182.7,61.9L184.2,63L185.6,63L187.1,63.7L188.5,63.8L189.9,65L191.4,65L192.8,65.2L194.2,65.1L195.7,66.3L197.1,66.2L198.6,66.2L200,67.3"/></svg></span></li>
+              <li class="rv" style="--d:.18s"><div class="hl-text"><b>量化策略库</b><p>全球 ETF 动量、大周期门控与成交额选股，配完整回测。</p></div><span class="thumb"><svg class="fig" viewBox="0 0 200 78" role="img" aria-hidden="true"><line class="fg-base" x1="0" x2="200" y1="76" y2="76"/><rect class="fg-bar f-acc" x="3" y="6.9" width="10.7" height="69.1" fill-opacity="0.95"/><rect class="fg-bar f-acc" x="19.7" y="14.2" width="10.7" height="61.8" fill-opacity="0.95" style="--fd:0.05s"/><rect class="fg-bar f-acc" x="36.3" y="17.2" width="10.7" height="58.8" fill-opacity="0.95" style="--fd:0.10s"/><rect class="fg-bar f-mut" x="53" y="21.7" width="10.7" height="54.3" fill-opacity="0.3" style="--fd:0.15s"/><rect class="fg-bar f-mut" x="69.7" y="27.3" width="10.7" height="48.7" fill-opacity="0.3" style="--fd:0.20s"/><rect class="fg-bar f-mut" x="86.3" y="33.5" width="10.7" height="42.5" fill-opacity="0.3" style="--fd:0.25s"/><rect class="fg-bar f-mut" x="103" y="38.1" width="10.7" height="37.9" fill-opacity="0.3" style="--fd:0.30s"/><rect class="fg-bar f-mut" x="119.7" y="41" width="10.7" height="35" fill-opacity="0.3" style="--fd:0.35s"/><rect class="fg-bar f-mut" x="136.3" y="47.3" width="10.7" height="28.7" fill-opacity="0.3" style="--fd:0.40s"/><rect class="fg-bar f-mut" x="153" y="51.6" width="10.7" height="24.4" fill-opacity="0.3" style="--fd:0.45s"/><rect class="fg-bar f-mut" x="169.7" y="54.4" width="10.7" height="21.6" fill-opacity="0.3" style="--fd:0.50s"/><rect class="fg-bar f-mut" x="186.3" y="60.2" width="10.7" height="15.8" fill-opacity="0.3" style="--fd:0.55s"/></svg></span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <p class="sec-label rv">04 — Toolkit</p>
+        <h2 class="rv" style="--d:.06s">Built to test ideas, not just view them.</h2>
+        <div class="cells">
+<div class="cell rv" style="--d:0.00s"><div class="demo d-builder">
+  <div class="d-chips"><span class="chip a1"><i class="k-acc"></i>A · S&amp;P 500</span><span class="chip a2"><i class="k-txt"></i>B · US 10Y</span><span class="chip a3">ƒ A / B</span></div>
+  <svg viewBox="0 0 300 80" aria-hidden="true"><line class="fg-grid" x1="0" x2="300" y1="40" y2="40"/><path class="la" pathLength="1" d="M0,74L5.1,71.4L10.2,70L15.3,67L20.3,65.4L25.4,62L30.5,58.3L35.6,55.5L40.7,51.6L45.8,50.1L50.8,47.4L55.9,45.3L61,44.1L66.1,45.2L71.2,45.6L76.3,46.9L81.4,46.7L86.4,48.6L91.5,49.2L96.6,49.8L101.7,51.6L106.8,53.8L111.9,53.2L116.9,54L122,53.9L127.1,53.8L132.2,52.1L137.3,48.5L142.4,46.6L147.5,44.9L152.5,40.8L157.6,38.3L162.7,35.6L167.8,31.5L172.9,29.9L178,28.3L183.1,27.8L188.1,25.9L193.2,25L198.3,24.2L203.4,24.8L208.5,24.9L213.6,25.7L218.6,28.1L223.7,29L228.8,29.8L233.9,31.1L239,30.7L244.1,30.2L249.2,31L254.2,28.5L259.3,27.2L264.4,25.4L269.5,21.7L274.6,19.5L279.7,17.4L284.7,13.3L289.8,11.1L294.9,6.9L300,6"/><path class="lb" pathLength="1" d="M0,6L5.1,6.9L10.2,10L15.3,12L20.3,15L25.4,18.8L30.5,21.2L35.6,26L40.7,29.5L45.8,34.3L50.8,36.7L55.9,40.2L61,40.9L66.1,42.2L71.2,43L76.3,39.9L81.4,37.2L86.4,36.7L91.5,35.8L96.6,35.2L101.7,32.6L106.8,30.8L111.9,28.3L116.9,26.3L122,28.2L127.1,29L132.2,31.1L137.3,33.3L142.4,36.9L147.5,40.1L152.5,45.3L157.6,47.6L162.7,52L167.8,54.5L172.9,55.9L178,58.2L183.1,59.2L188.1,59.1L193.2,58.6L198.3,58.8L203.4,58.5L208.5,58.3L213.6,56.9L218.6,52.3L223.7,49.5L228.8,47.6L233.9,47.5L239,46.2L244.1,44.2L249.2,42L254.2,43.7L259.3,43.7L264.4,47.7L269.5,50.3L274.6,53.5L279.7,58.5L284.7,62.6L289.8,68L294.9,73.1L300,74"/></svg>
+</div><h3>Chart builder</h3><p>Overlay any series on the site, with independent axes and formulas.</p></div>
+<div class="cell rv" style="--d:0.06s"><div class="demo d-board">
+  <div class="row a1 hot"><span class="ping"></span><b>VIX term structure</b><em>1d</em></div><div class="row a2"><span class="ping"></span><b>两融余额</b><em>2d</em></div><div class="row a3"><span class="ping"></span><b>Put/call ratio</b><em>6d</em></div>
+</div><h3>Signal board</h3><p>Every chart that fired a signal recently, on one page.</p></div>
+<div class="cell rv" style="--d:0.12s"><div class="demo d-search">
+  <div class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span class="typed" style="--w:68px">liquidity</span><span class="caret"></span></div>
+  <ol><li class="a3 hit">Dollar liquidity model<kbd>↵</kbd></li><li class="a3">Net liquidity vs. S&amp;P 500</li><li class="a3">Treasury General Account</li></ol>
+</div><h3>Site-wide search</h3><p>Jump straight to any chart, entry point or research note.</p></div>
+<div class="cell rv" style="--d:0.00s"><div class="demo d-health"><span class="scan"></span>
+  <div class="row"><b>S&amp;P 500 breadth</b><em class="ok">OK</em></div><div class="row"><b>CFTC positioning</b><em class="ok">OK</em></div><div class="row"><b>ETF 申赎</b><em class="stale">STALE</em></div><div class="row"><b>人民币汇率</b><em class="ok">OK</em></div>
+</div><h3>Data health</h3><p>Stale series are detected automatically and flagged.</p></div>
+<div class="cell rv" style="--d:0.06s"><div class="demo d-share">
+  <div class="mini"><svg viewBox="0 0 300 46" aria-hidden="true"><path class="la" pathLength="1" d="M0,42L5.1,40.7L10.2,38L15.3,34.3L20.3,32.8L25.4,31.8L30.5,29.3L35.6,27.4L40.7,26.2L45.8,24.9L50.8,26L55.9,25.2L61,26.3L66.1,27.2L71.2,27.8L76.3,28.6L81.4,29.8L86.4,30.1L91.5,29.7L96.6,30.9L101.7,31.4L106.8,30L111.9,29.4L116.9,28.3L122,27.2L127.1,26L132.2,23.9L137.3,22.6L142.4,20.6L147.5,18.7L152.5,16.9L157.6,15.8L162.7,13.9L167.8,12.5L172.9,12.4L178,12.2L183.1,12.9L188.1,14.2L193.2,15.4L198.3,16L203.4,18.1L208.5,20.5L213.6,21.4L218.6,22.2L223.7,23.6L228.8,24.7L233.9,23.8L239,23.2L244.1,22.8L249.2,21.3L254.2,19.5L259.3,16.2L264.4,14.8L269.5,11.6L274.6,9.5L279.7,7.9L284.7,6.2L289.8,5.8L294.9,4L300,4.6"/></svg><span class="sig">Chart by ₿elling Xu</span></div>
+  <div class="link"><span>quantitative-strategy.pages.dev/s/7Kq2xR</span><b>⧉</b></div>
+  <span class="toast a4">✓ Link copied</span>
+</div><h3>Copy &amp; share</h3><p>Copy a signed chart image, or a 30-day link guests can open.</p></div>
+<div class="cell rv" style="--d:0.12s"><div class="demo d-pipe"><div class="rail"><span class="pulse"></span></div>
+  <div class="node" style="--d:0.00s"><i>01</i><b>Collect</b></div><div class="node" style="--d:1.33s"><i>02</i><b>Compute</b></div><div class="node" style="--d:2.67s"><i>03</i><b>Verify</b></div><div class="node" style="--d:4.00s"><i>04</i><b>Publish</b></div>
+</div><h3>Daily refresh</h3><p>Data, charts and signals are rebuilt every trading day.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <p class="sec-label rv">05 — Access</p>
+        <h2 class="rv" style="--d:.06s">Members first, with a door for guests.</h2>
+        <div class="cells three">
+          <div class="cell rv"><span class="tag">Members</span><h3>Everything</h3><p>Every chart, strategy and tool. Stay signed in for 100 days.</p></div>
+          <div class="cell rv" style="--d:.06s"><span class="tag">Guests</span><h3>The dashboard map</h3><p>Browse each desk's overview map without an account.</p></div>
+          <div class="cell rv" style="--d:.12s"><span class="tag">Shared links</span><h3>One chart, 30 days</h3><p>A member can share a single chart; anyone with the link can open that snapshot.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec end">
+      <div class="wrap">
+        <img class="end-mark rv" src="./icon.png" alt="" />
+        <h2 class="rv" style="--d:.04s">Choose a desk.</h2>
+        <div class="end-actions rv" style="--d:.08s">
+          <a class="go c-us" href="https://quantitative-strategy.pages.dev" target="_blank" rel="noopener noreferrer">Global Markets Dashboard <span>→</span></a>
+          <a class="go c-cn" href="https://timing-ashare.pages.dev/dashboard" target="_blank" rel="noopener noreferrer" lang="zh-CN">A股综合看板 <span>→</span></a>
+        </div>
+        <p class="end-note">Members only · 仅限会员 · For research purposes only. Not investment advice.</p>
+      </div>
+    </section>
+  </div>
 
   <script>
   (function () {
@@ -373,6 +716,38 @@
         charts.forEach(function (c) { c.step(dt); c.draw(); });
         requestAnimationFrame(frame);
       })(performance.now());
+    }
+
+    // ---- 往下滚动：逐段浮现 + 数字滚动 ----
+    var hasIO = "IntersectionObserver" in window;
+    var revealIO = hasIO ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        revealIO.unobserve(en.target);
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }) : null;
+    Array.prototype.forEach.call(document.querySelectorAll(".rv"), function (el) {
+      if (revealIO && !reduce) revealIO.observe(el); else el.classList.add("in");
+    });
+    var glance = document.getElementById("glance");
+    if (hasIO && glance && !reduce) {
+      var counted = false;
+      new IntersectionObserver(function (entries, io) {
+        if (counted || !entries[0].isIntersecting) return;
+        counted = true;
+        io.disconnect();
+        Array.prototype.forEach.call(glance.querySelectorAll("[data-count]"), function (el) {
+          var target = +el.getAttribute("data-count"), t0 = 0;
+          el.textContent = "0";
+          (function step(now) {
+            if (!t0) t0 = now;
+            var p = Math.min(1, (now - t0) / 1500);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(step);
+          })(performance.now());
+        });
+      }, { threshold: 0.35 }).observe(glance);
     }
   })();
   </script>
