@@ -108,6 +108,40 @@
       display: flex; justify-content: space-between; gap: 24px; font: 11.5px/1.6 var(--mono); color: var(--faint);
     }
 
+    /* ---- 第一屏正好占满窗口（往下的内容不露出来），内容上下居中，底部是滚动提示 + 页脚 ---- */
+    html { scroll-behavior: smooth; }
+    .first { display: flex; flex-direction: column; min-height: calc(100vh - 56px); min-height: calc(100svh - 56px); }
+    .first main { width: 100%; margin: auto; }
+    .first footer { width: 100%; }
+    .cue {
+      align-self: center; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 0 0;
+      font: 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color .2s, opacity .4s;
+    }
+    .cue:hover { color: var(--text); }
+    .cue.gone { opacity: 0; pointer-events: none; }
+    .cue i { width: 1px; height: 28px; background: linear-gradient(var(--text), transparent); transform-origin: top; animation: cue 2.2s ease-in-out infinite; }
+    @keyframes cue { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+    .story { scroll-margin-top: 56px; }
+    /* 矮一些的屏幕（常见笔记本）：收紧上下间距和卡片高度，让滚动提示和页脚也留在第一屏 */
+    @media (min-width: 901px) and (max-height: 900px) {
+      main { padding-top: 36px; padding-bottom: 16px; }
+      .desk { min-height: 380px; }
+      .chart { min-height: 120px; margin: 16px 0 12px; }
+      footer { padding-top: 12px; padding-bottom: 20px; }
+    }
+    @media (min-width: 901px) and (max-height: 740px) {
+      main { padding-top: 12px; }
+      .eyebrow { margin-bottom: 12px; }
+      h1 { font-size: 46px; margin-bottom: 10px; }
+      .lede { margin-bottom: 20px; }
+      footer { padding-bottom: 12px; }
+      .desk { min-height: 320px; }
+      .chart { min-height: 84px; }
+      .cue { gap: 8px; padding-top: 6px; }
+      .cue i { height: 20px; }
+    }
+
 
     /* ---- 往下滚动：两个看板的亮点 ---- */
     .story { --accent: #e8a33d; --on-accent: #16120a; --up: #3fae7a; --down: #d9534f; }
@@ -336,6 +370,7 @@
       .desks { grid-template-columns: 1fr; }
       .desk { min-height: 380px; }
       footer { padding: 18px 20px 28px; flex-direction: column; gap: 6px; }
+      .cue { display: none; }
     }
     /* ---- 手机（≤600px）：紧凑排版，底部改成整行的进入按钮 ---- */
     @media (max-width: 600px) {
@@ -394,6 +429,8 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .desk, .desk::before, .enter span { transition: none; }
+      html { scroll-behavior: auto; }
+      .cue i { animation: none; }
       .rv { opacity: 1; transform: none; transition: none; }
       .fg-ln { stroke-dashoffset: 0 !important; transition: none !important; }
       .fg-fade, .fg-pop { opacity: 1 !important; transition: none !important; }
@@ -414,6 +451,7 @@
     </div>
   </header>
 
+  <div class="first">
   <main>
     <p class="eyebrow">Research dashboards</p>
     <h1>Markets Research</h1>
@@ -452,12 +490,14 @@
     </div>
   </main>
 
+  <a class="cue" href="#story">Scroll to explore<i></i></a>
   <footer>
     <span>For research purposes only. Not investment advice. 仅供研究参考，不构成投资建议。</span>
     <span class="keys">Press U / C to select · Enter to open</span>
   </footer>
+  </div>
 
-  <div class="story">
+  <div class="story" id="story">
     <section class="sec">
       <div class="wrap">
         <p class="sec-label rv">02 — At a glance</p>
@@ -717,6 +757,10 @@
         requestAnimationFrame(frame);
       })(performance.now());
     }
+
+    // ---- 滚动提示：开始往下看之后就淡出 ----
+    var cue = document.querySelector(".cue");
+    window.addEventListener("scroll", function () { cue.classList.toggle("gone", (window.scrollY || 0) > 40); }, { passive: true });
 
     // ---- 往下滚动：逐段浮现 + 数字滚动 ----
     var hasIO = "IntersectionObserver" in window;
